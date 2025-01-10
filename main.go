@@ -42,17 +42,15 @@ func main() {
 	torrentManager := start_client()
 	go func() {
 		torrent := torrentManager.start_torrent("magnet:?xt=urn:btih:BB5F06D3DC020BCCDD8949E0C80DC6B2A236FE9C")
-		ticker := time.NewTicker(1 * time.Second)
-		for {
-			select {
-			case <-ticker.C:
-				completionRatio := float64(torrent.BytesCompleted()) / float64(torrent.Info().TotalLength())
+		ticker := time.NewTicker(time.Second)
 
-				fmt.Printf("Download progress: %.2f%%\n", completionRatio*100)
-				if completionRatio >= 1.0 {
-					ticker.Stop()
-					return
-				}
+		for {
+			completionRatio := float64(torrent.BytesCompleted()) / float64(torrent.Info().TotalLength())
+
+			fmt.Printf("Download progress: %.2f%%\n", completionRatio*100)
+			if completionRatio >= 1.0 {
+				ticker.Stop()
+				return
 			}
 		}
 	}()
