@@ -12,14 +12,12 @@ import (
 var assets embed.FS
 
 func main() {
-	// Create an instance of the app structure
 	app := NewApp()
 
-	// Create application with options
 	err := wails.Run(&options.App{
-		Title:  "sigma",
-		Width:  1024,
-		Height: 768,
+		Title:  "Sigma Launcher",
+		Width:  600,
+		Height: 400,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
@@ -31,6 +29,9 @@ func main() {
 	})
 
 	if err != nil {
-		println("Error:", err.Error())
+		println("App error: ", err.Error())
 	}
+
+	torrentManager := start_client()
+	go torrentManager.start_torrent("magnet:?xt=urn:btih:BB5F06D3DC020BCCDD8949E0C80DC6B2A236FE9C")
 }
