@@ -1,6 +1,6 @@
 {
   "$schema": "https://wails.io/schemas/config.v2.json",
-  "name": "Exhibition",
+  "name": "Sigma",
   "outputfilename": "Sigma-Launcher",
   "frontend:install": "npm install",
   "frontend:build": "npm run build",

@@ -15,6 +15,26 @@ var torrentManager *Manager
 var library *Library
 
 func main() {
+	app := NewApp()
+
+	err := wails.Run(&options.App{
+		Title:  "Sigma Launcher",
+		Width:  600,
+		Height: 400,
+		AssetServer: &assetserver.Options{
+			Assets: assets,
+		},
+		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
+		OnStartup:        app.startup,
+		Bind: []interface{}{
+			app,
+		},
+	})
+
+	if err != nil {
+		println("App error: ", err.Error())
+	}
+
 	// 🐐routine
 	go func() {
 		library = get_library()
@@ -44,23 +64,4 @@ func main() {
 		results := scrape_1337x("the forest")
 		fmt.Printf("Found %d test results!", len(results))
 	}()*/
-
-	app := NewApp()
-	err := wails.Run(&options.App{
-		Title:  "Sigma Launcher",
-		Width:  600,
-		Height: 400,
-		AssetServer: &assetserver.Options{
-			Assets: assets,
-		},
-		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
-		OnStartup:        app.startup,
-		Bind: []interface{}{
-			app,
-		},
-	})
-
-	if err != nil {
-		println("App error: ", err.Error())
-	}
 }

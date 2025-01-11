@@ -1,39 +1,40 @@
 import { AddGame, GetLibrary } from "../wailsjs/go/main/App";
 
-var gameList = document.getElementById("games");
+const container = document.createElement("div");
+container.id = "container";
+document.body.appendChild(container);
 
-function updateLibrary() {
+async function updateLibrary() {
     alert("Library updating");
 
     // clear oude games
-    gameList.textContent = "";
+    container.textContent = "";
+    library = await GetLibrary();
 
-    GetLibrary().then((library) => {
-        // loop over nieuwe
-        library.forEach((game) => {
-            console.log(game);
+    // loop over nieuwe
+    library.forEach((game) => {
+        console.log(game);
 
-            const app = document.createElement("img");
-            app.src =
-                `https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${game.appid}/library_hero.jpg`;
-            app.width = 400;
-            app.alt = game.appid;
+        const app = document.createElement("img");
+        app.src =
+            `https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${game.appid}/library_hero.jpg`;
+        app.width = 400;
+        app.alt = game.appid;
 
-            gameList.appendChild(app);
-        });
-
-        // plus knop
-        const input = document.createElement("button");
-        input.textContent = "Add Game";
-        input.onclick = async () => {
-            var ok = await AddGame();
-            if (ok) {
-                updateLibrary();
-            }
-        }
-
-        gameList.appendChild(input);
+        container.appendChild(app);
     });
+
+    // plus knop
+    const input = document.createElement("button");
+    input.textContent = "Add Game";
+    input.onclick = async () => {
+        var ok = await AddGame();
+        if (ok) {
+            updateLibrary();
+        }
+    };
+
+    container.appendChild(input);
 }
 
-updateLibrary();
+// updateLibrary();
