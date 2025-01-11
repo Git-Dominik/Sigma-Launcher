@@ -17,8 +17,8 @@ var library *Library
 
 func main() {
 	// 🐐routine
-	/** torrentManager := start_client()
-	torrent := torrentManager.start_torrent("magnet:?xt=urn:btih:BB5F06D3DC020BCCDD8949E0C80DC6B2A236FE9C")
+	torrentManager = start_client()
+	/*torrent := torrentManager.start_torrent("magnet:?xt=urn:btih:BB5F06D3DC020BCCDD8949E0C80DC6B2A236FE9C")
 	ticker := time.NewTicker(time.Second)
 	defer ticker.Stop()
 
@@ -44,8 +44,8 @@ func main() {
 			if completionRatio >= 1.0 {
 				return
 			}
-		}*/
-	}()
+		}
+	}()*/
 
 	go func() {
 		results := scrape_1337x("the forest")
