@@ -4,60 +4,77 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"os"
 )
 
-type Library struct {
-	Games []int `json:"games"`
+type Game struct {
+	AppID       int    `json:"appid"`
+	PlayTime    int    `json:"playtime"`
+	Achievments []int  `json:"achievments"`
+	Executable  string `json:"executable"`
 }
 
-// geeft library.json als Library struct vol met appids
+type Library struct {
+	Games []Game `json:"games"`
+}
+
+// geeft library.json als Library struct vol met data
 func get_library() *Library {
-	// open library.json bestand
-	file, err := os.Open("library.json")
+	file, err := os.OpenFile("./library.json", os.O_RDWR|os.O_CREATE, 0644)
 	if err != nil {
-		fmt.Println("Error opening library.json")
+		log.Printf("Error opening/creating library.json: %v", err)
+		return &Library{Games: []Game{}}
 	}
 	defer file.Close()
 
-	// lees library.json bytes
 	bytes, err := io.ReadAll(file)
 	if err != nil {
-		fmt.Println("Error reading library.json")
+		log.Printf("Error reading library.json: %v", err)
+		return &Library{Games: []Game{}}
 	}
 
-	// maak nieuwe library variable
-	var games Library
-	json.Unmarshal(bytes, &games)
+	if len(bytes) == 0 {
+		emptyLib := &Library{Games: []Game{}}
+		jsonData, err := json.MarshalIndent(emptyLib, "", "    ")
+		if err != nil {
+			log.Printf("Error marshaling empty library: %v", err)
+			return emptyLib
+		}
+		if _, err := file.Write(jsonData); err != nil {
+			log.Printf("Error writing empty library: %v", err)
+		}
+		return emptyLib
+	}
 
-	// return eind resultaat als struct zodat je add library kan gebruiken
-	return &games
+	var library Library
+	if err := json.Unmarshal(bytes, &library); err != nil {
+		log.Printf("Error parsing library.json: %v", err)
+		return &Library{Games: []Game{}}
+	}
+
+	return &library
 }
 
-func (lib Library) add_library(app_id int) bool {
-	// voeg toe aan array
-	lib.Games = append(lib.Games, app_id)
+func (lib *Library) add_library(gameData Game) error {
+	// Append the new game
+	lib.Games = append(lib.Games, gameData)
 
-	// open library.json bestand
-	file, err := os.OpenFile("library.json", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
-	if err != nil {
-		fmt.Println("Error opening library.json")
-	}
-	defer file.Close()
-
-	// converteer struct naar json
+	// Marshal the entire library to JSON
 	jsonData, err := json.Marshal(lib)
 	if err != nil {
-		fmt.Println("Error converting bytes to json")
+		return fmt.Errorf("failed to marshal library: %w", err)
 	}
 
-	// schrijf json naar library.json
-	_, err = file.Write(jsonData)
+	// Write to file
+	err = os.WriteFile("library.json", jsonData, 0644)
+	if err != nil {
+		return fmt.Errorf("failed to write library file: %w", err)
+	}
 
-	// return of het gelukt is
-	return err == nil
+	return nil
 }
 
-func start_app() {
+func (lib *Library) start_app() {
 
 }

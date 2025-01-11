@@ -1,0 +1,13 @@
+#games {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#games img {
+    margin: 5px;
+}
+
+#games input {
+    margin-top: 10px;
+}

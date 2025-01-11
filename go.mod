@@ -10,6 +10,8 @@ require (
 	github.com/wailsapp/wails/v2 v2.9.2
 )
 
+require github.com/TheTitanrain/w32 v0.0.0-20180517000239-4f5cfb03fabf // indirect
+
 require (
 	github.com/PuerkitoBio/goquery v1.10.1 // indirect
 	github.com/RoaringBitmap/roaring v1.2.3 // indirect
@@ -97,6 +99,7 @@ require (
 	github.com/saintfish/chardet v0.0.0-20230101081208-5e3ef4b5456d // indirect
 	github.com/samber/lo v1.38.1 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
+	github.com/sqweek/dialog v0.0.0-20240226140203-065105509627
 	github.com/temoto/robotstxt v1.1.2 // indirect
 	github.com/tidwall/btree v1.6.0 // indirect
 	github.com/tkrajina/go-reflector v0.5.6 // indirect
