@@ -6,6 +6,7 @@ toolchain go1.23.4
 
 require (
 	github.com/anacrolix/torrent v1.58.0
+	github.com/gocolly/colly v1.2.0
 	github.com/wailsapp/wails/v2 v2.9.2
 )
 
@@ -48,7 +49,6 @@ require (
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
-	github.com/gocolly/colly v1.2.0 // indirect
 	github.com/godbus/dbus/v5 v5.1.0 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
@@ -115,7 +115,7 @@ require (
 	golang.org/x/sys v0.28.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
-	google.golang.org/appengine v1.4.0 // indirect
+	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/protobuf v1.33.0 // indirect
 	lukechampine.com/blake3 v1.1.6 // indirect
 	modernc.org/libc v1.22.3 // indirect

@@ -20,15 +20,18 @@ func start_client() *Manager {
 	return &Manager{client: client}
 }
 
-// start torrent download
-// ik doe ook dat de torrent returned want vrijheid
-func (manager Manager) start_torrent(magnetLink string) *torrent.Torrent {
-	torrent, _ := manager.client.AddMagnet(magnetLink)
-	print("Added torrent")
-	<-torrent.GotInfo()
+// add download
+// start ook torrent meteen
+func (manager Manager) add_torrent(magnetLink string) *torrent.Torrent {
+	t, err := manager.client.AddMagnet(magnetLink)
+	if err != nil {
+		fmt.Println("Error adding torrent")
+	}
 
-	fmt.Println("Downloading torrent")
-	torrent.DownloadAll()
+	fmt.Println("Getting metadata")
+	<-t.GotInfo()
+	t.DownloadAll()
+	fmt.Println("Download starting")
 
-	return torrent
+	return t
 }
