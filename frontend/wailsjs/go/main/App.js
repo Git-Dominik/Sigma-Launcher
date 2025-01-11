@@ -9,3 +9,7 @@ export function AddGame() {
 export function GetLibrary() {
   return window['go']['main']['App']['GetLibrary']();
 }
+
+export function StartGame(arg1) {
+  return window['go']['main']['App']['StartGame'](arg1);
+}

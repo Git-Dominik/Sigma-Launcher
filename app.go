@@ -26,8 +26,12 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 }
 
-func (a *App) GetLibrary() []Game {
+func (a *App) GetLibrary() map[int]Game {
 	return library.Games
+}
+
+func (a *App) StartGame(app_id int) bool {
+	return library.start_app(app_id)
 }
 
 func (a *App) AddGame() bool {

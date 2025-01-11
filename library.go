@@ -6,6 +6,8 @@ import (
 	"io"
 	"log"
 	"os"
+	"os/exec"
+	"time"
 )
 
 type Game struct {
@@ -16,7 +18,7 @@ type Game struct {
 }
 
 type Library struct {
-	Games []Game `json:"games"`
+	Games map[int]Game `json:"games"`
 }
 
 // geeft library.json als Library struct vol met data
@@ -24,18 +26,18 @@ func get_library() *Library {
 	file, err := os.OpenFile("./library.json", os.O_RDWR|os.O_CREATE, 0644)
 	if err != nil {
 		log.Printf("Error opening/creating library.json: %v", err)
-		return &Library{Games: []Game{}}
+		return &Library{Games: make(map[int]Game)}
 	}
 	defer file.Close()
 
 	bytes, err := io.ReadAll(file)
 	if err != nil {
 		log.Printf("Error reading library.json: %v", err)
-		return &Library{Games: []Game{}}
+		return &Library{Games: make(map[int]Game)}
 	}
 
 	if len(bytes) == 0 {
-		emptyLib := &Library{Games: []Game{}}
+		emptyLib := &Library{Games: make(map[int]Game)}
 		jsonData, err := json.MarshalIndent(emptyLib, "", "    ")
 		if err != nil {
 			log.Printf("Error marshaling empty library: %v", err)
@@ -50,7 +52,7 @@ func get_library() *Library {
 	var library Library
 	if err := json.Unmarshal(bytes, &library); err != nil {
 		log.Printf("Error unmarshalling library.json: %v", err)
-		return &Library{Games: []Game{}}
+		return &Library{Games: make(map[int]Game)}
 	}
 
 	return &library
@@ -58,7 +60,7 @@ func get_library() *Library {
 
 func (lib *Library) add_library(gameData Game) error {
 	// Append the new game
-	lib.Games = append(lib.Games, gameData)
+	lib.Games[gameData.AppID] = gameData
 
 	// Marshal the entire library to JSON
 	jsonData, err := json.Marshal(lib)
@@ -75,6 +77,29 @@ func (lib *Library) add_library(gameData Game) error {
 	return nil
 }
 
-func (lib *Library) start_app() {
+func (lib *Library) start_app(appID int) bool {
+	game, ok := lib.Games[appID]
+	if !ok {
+		return false
+	}
 
+	cmd := exec.Command(game.Executable)
+	cmd.Start()
+
+	go func() {
+		seconds := 0
+
+		for {
+			process, err := os.FindProcess(cmd.Process.Pid)
+			if process == nil || err != nil {
+				fmt.Printf("Game quit after %d\n", seconds)
+				break
+			}
+
+			seconds++
+			time.Sleep(time.Second)
+		}
+	}()
+
+	return true
 }
