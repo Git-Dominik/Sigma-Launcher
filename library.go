@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -76,5 +77,6 @@ func (lib *Library) add_library(gameData Game) error {
 }
 
 func (lib *Library) start_app() {
+	reader := bufio.NewReader(os.Stdin)
 
 }

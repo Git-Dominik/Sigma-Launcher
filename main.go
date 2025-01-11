@@ -16,6 +16,12 @@ var torrentManager *Manager
 var library *Library
 
 func main() {
+	// 🐐routine
+	/** torrentManager := start_client()
+	torrent := torrentManager.start_torrent("magnet:?xt=urn:btih:BB5F06D3DC020BCCDD8949E0C80DC6B2A236FE9C")
+	ticker := time.NewTicker(time.Second)
+	defer ticker.Stop()
+
 	go func() {
 		library = get_library()
 
@@ -64,6 +70,10 @@ func main() {
 	if err != nil {
 		println("App error: ", err.Error())
 	}
+}
+
+func select_app() {
+
 }
 
 func printFileInfo(info os.FileInfo) {
