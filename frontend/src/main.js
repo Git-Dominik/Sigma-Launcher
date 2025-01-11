@@ -14,7 +14,6 @@ async function updateLibrary(container) {
     const games = Array.isArray(library) ? library : Object.values(library);
     games.forEach((game) => {
         console.log(game);
-
         gameList.appendChild(
             gameButton(
                 "Game Title",
@@ -42,5 +41,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     container.id = "container";
     document.body.appendChild(container);
 
-    await updateLibrary(container);
+    // await updateLibrary(container);
 });
