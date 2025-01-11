@@ -36,9 +36,7 @@ func (a *App) AddGame() bool {
 		return false
 	}
 
-	dir := filepath.Dir(filename)
-
-	appidBytes, err := os.ReadFile(filepath.Join(dir, "steam_appid.txt"))
+	appidBytes, err := os.ReadFile(filepath.Join(filepath.Dir(filename), "steam_appid.txt"))
 	if err != nil {
 		dialog.Message("Error: steam_appid.txt not found in game directory.").Error()
 		return false

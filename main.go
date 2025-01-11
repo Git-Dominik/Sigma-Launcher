@@ -2,8 +2,6 @@ package main
 
 import (
 	"embed"
-	"fmt"
-	"os"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -12,22 +10,17 @@ import (
 
 //go:embed all:frontend/dist
 var assets embed.FS
+
 var torrentManager *Manager
 var library *Library
 
 func main() {
 	// 🐐routine
-	torrentManager = start_client()
-	/*torrent := torrentManager.start_torrent("magnet:?xt=urn:btih:BB5F06D3DC020BCCDD8949E0C80DC6B2A236FE9C")
-	ticker := time.NewTicker(time.Second)
-	defer ticker.Stop()
-
 	go func() {
 		library = get_library()
-
-		// 🐐routine
 		torrentManager = start_client()
-		/* torrent := torrentManager.add_torrent("magnet:?xt=urn:btih:715C8751E48DFA6AC8E1F179C0C064B6AAB2C278")
+
+		/*torrent := torrentManager.add_torrent("magnet:?xt=urn:btih:715C8751E48DFA6AC8E1F179C0C064B6AAB2C278")
 		ticker := time.NewTicker(time.Second)
 		defer ticker.Stop()
 
@@ -44,13 +37,13 @@ func main() {
 			if completionRatio >= 1.0 {
 				return
 			}
-		}
-	}()*/
+		}*/
+	}()
 
-	go func() {
+	/*go func() {
 		results := scrape_1337x("the forest")
 		fmt.Printf("Found %d test results!", len(results))
-	}()
+	}()*/
 
 	app := NewApp()
 	err := wails.Run(&options.App{
@@ -70,18 +63,4 @@ func main() {
 	if err != nil {
 		println("App error: ", err.Error())
 	}
-}
-
-func select_app() {
-
-}
-
-func printFileInfo(info os.FileInfo) {
-	fmt.Println("\nFile Information:")
-	fmt.Printf("| %-20s: %-40s |\n", "File Name", info.Name())
-	fmt.Printf("| %-20s: %-40d |\n", "Size (bytes)", info.Size())
-	fmt.Printf("| %-20s: %-40s |\n", "Permissions", info.Mode())
-	fmt.Printf("| %-20s: %-40s |\n", "Last Modified", info.ModTime())
-	fmt.Printf("| %-20s: %-40v |\n", "Is Directory", info.IsDir())
-	fmt.Println()
 }
