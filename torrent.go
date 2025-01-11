@@ -25,15 +25,10 @@ func start_client() *Manager {
 func (manager Manager) start_torrent(magnetLink string) *torrent.Torrent {
 	torrent, _ := manager.client.AddMagnet(magnetLink)
 	print("Added torrent")
-
 	<-torrent.GotInfo()
 
 	fmt.Println("Downloading torrent")
-
 	torrent.DownloadAll()
-	manager.client.WaitAll()
-
-	fmt.Println("Downloaded torrent")
 
 	return torrent
 }

@@ -18,8 +18,30 @@ import (
 var assets embed.FS
 
 func main() {
-	app := NewApp()
+	// 🐐routine
+	torrentManager := start_client()
+	torrent := torrentManager.start_torrent("magnet:?xt=urn:btih:BB5F06D3DC020BCCDD8949E0C80DC6B2A236FE9C")
+	ticker := time.NewTicker(time.Second)
+	defer ticker.Stop()
 
+	go func() {
+		var lastBytes int64 = 0
+		for range ticker.C {
+			currentBytes := torrent.BytesCompleted()
+			bytesPerSecond := currentBytes - lastBytes
+			mbPerSecond := float64(bytesPerSecond) / 1024 / 1024
+
+			completionRatio := float64(currentBytes) / float64(torrent.Info().TotalLength())
+			fmt.Printf("Progress: %.2f%% (%.2f MB/s)\n", completionRatio*100, mbPerSecond)
+
+			lastBytes = currentBytes
+			if completionRatio >= 1.0 {
+				return
+			}
+		}
+	}()
+
+	app := NewApp()
 	err := wails.Run(&options.App{
 		Title:  "Sigma Launcher",
 		Width:  600,
@@ -37,53 +59,10 @@ func main() {
 	if err != nil {
 		println("App error: ", err.Error())
 	}
-
-	// 🐐routine
-	torrentManager := start_client()
-	go func() {
-		torrent := torrentManager.start_torrent("magnet:?xt=urn:btih:BB5F06D3DC020BCCDD8949E0C80DC6B2A236FE9C")
-		ticker := time.NewTicker(time.Second)
-
-		for {
-			completionRatio := float64(torrent.BytesCompleted()) / float64(torrent.Info().TotalLength())
-
-			fmt.Printf("Download progress: %.2f%%\n", completionRatio*100)
-			if completionRatio >= 1.0 {
-				ticker.Stop()
-				return
-			}
-		}
-	}()
 }
 
 func select_app() {
-	reader := bufio.NewReader(os.Stdin)
 
-	fmt.Print("Enter the full path to exe: ")
-	input, _ := reader.ReadString('\n')
-	input = strings.TrimSpace(input)
-
-	// C:\Riot Games\Riot Client\RiotClientServices.exe
-	info, err := os.Stat(input)
-	if err != nil {
-		if os.IsNotExist(err) {
-			fmt.Printf("File does not exist: %s\n", input)
-		} else {
-			fmt.Printf("Error accessing file: %s\n", input)
-		}
-	}
-
-	printFileInfo(info)
-
-	cmd := exec.Command(input)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-
-	fmt.Printf("Running %s\n", input)
-	err = cmd.Run()
-	if err != nil {
-		fmt.Printf("Error running executable: %v\n", err)
-	}
 }
 
 func printFileInfo(info os.FileInfo) {
