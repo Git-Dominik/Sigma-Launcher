@@ -35,4 +35,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('hashchange', setActiveItem);
     setActiveItem();
+
+    const gameBoxes = document.querySelectorAll('.game-library-game-box');
+    gameBoxes.forEach(gameBox => {
+        gameBox.addEventListener('click', () => {
+            const gameTitle = gameBox.querySelector('.text-container h1').textContent;
+            const gameDescription = gameBox.querySelector('.text-container p').textContent;
+
+            const gamePage = document.getElementById('game-page');
+            const gamePageTitle = document.getElementById('game-page-title');
+            const gamePageDescription = document.getElementById('game-page-description');
+
+            gamePageTitle.textContent = gameTitle;
+            gamePageDescription.textContent = gameDescription;
+            gamePage.style.display = 'block';
+        });
+    });
+
+    const gameBoxButtons = document.querySelectorAll('.game-box-info button');
+    gameBoxButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.stopPropagation();
+        });
+    });
+
+    const closeGamePageButton = document.getElementById('close-game-page');
+    if (closeGamePageButton) {
+        closeGamePageButton.addEventListener('click', () => {
+            const gamePage = document.getElementById('game-page');
+            gamePage.style.display = 'none';
+        });
+    }
 });
