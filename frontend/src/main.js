@@ -1,28 +1,31 @@
 import { AddGame, GetLibrary } from "../wailsjs/go/main/App";
+import { gameButton } from "./interface";
 
-function updateLibrary(container) {
+var gameList = document.querySelector(".game-library-container");
+
+async function updateLibrary(container) {
     alert("Library updating");
 
     // clear oude games
     container.textContent = "";
 
     // loop over nieuwe
-    GetLibrary().then((games) => {
-        games.forEach((game) => {
-            console.log(game);
-    
-            const app = document.createElement("img");
-            app.src =
-                `https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${game.appid}/library_hero.jpg`;
-            app.width = 400;
-            app.alt = game.appid;
-    
-            container.appendChild(app);
-        });
-    })
+    const library = await GetLibrary();
+    const games = Array.isArray(library) ? library : Object.values(library);
+    games.forEach((game) => {
+        console.log(game);
+
+        gameList.appendChild(
+            gameButton(
+                "Game Title",
+                "Game Description",
+                `https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${game.appid}/library_hero.jpg`,
+            ),
+        );
+    });
 
     // plus knop
-    const input = document.createElement("button");
+    /*const input = document.createElement("button");
     input.textContent = "Add Game";
     input.onclick = async () => {
         var ok = await AddGame();
@@ -31,13 +34,13 @@ function updateLibrary(container) {
         }
     };
 
-    container.appendChild(input);
+    container.appendChild(input);*/
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const container = document.createElement("div");
     container.id = "container";
     document.body.appendChild(container);
 
-    // updateLibrary(container);
+    await updateLibrary(container);
 });
