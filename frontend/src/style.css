@@ -166,3 +166,79 @@ html, body {
 .page-content.active {
     display: block;
 }
+
+.game-library-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-top: 45px;
+}
+
+.game-library-game-box {
+    height: 300px;
+    width: 200px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.043);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    position: relative;
+}
+
+.game-library-title {
+    width: 100%;
+    height: auto;
+    color: white;
+}
+
+.game-box-info {
+    width: 100%;
+    background-color: rgb(30, 30, 30);
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    bottom: -100px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.game-box-info p {
+    color: rgb(118, 118, 118);
+    margin: 0; 
+}
+.game-box-info h1 {
+    font-size: 15px;
+    margin: 0;
+}
+
+.game-library-game-box:hover .game-box-info {
+    bottom: 0;
+}
+
+.game-box-info .text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.game-box-info i {
+    transition: color 0.3s ease, transform 0.3s ease;
+    color: rgb(118, 118, 118);
+    font-size: 20px;
+}
+
+.game-box-info button {
+    right: 60px;
+    border: none;
+    background: none;
+    position: absolute;
+    cursor: pointer;
+}
