@@ -1,10 +1,13 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
 	"io"
 	"os"
+	"os/exec"
+	"strings"
 )
 
 type Library struct {
@@ -59,5 +62,9 @@ func (lib Library) add_library(app_id int) bool {
 }
 
 func start_app() {
+<<<<<<< HEAD
+=======
+	reader := bufio.NewReader(os.Stdin)
+>>>>>>> 43e6f58 (Added functioning sidebar to UI and search bar (not functioning yet))
 
 }

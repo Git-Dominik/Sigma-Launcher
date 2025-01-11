@@ -4,7 +4,6 @@ import (
 	"embed"
 	"fmt"
 	"os"
-	"time"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -15,33 +14,28 @@ import (
 var assets embed.FS
 
 func main() {
+	// 🐐routine
+	/** torrentManager := start_client()
+	torrent := torrentManager.start_torrent("magnet:?xt=urn:btih:BB5F06D3DC020BCCDD8949E0C80DC6B2A236FE9C")
+	ticker := time.NewTicker(time.Second)
+	defer ticker.Stop()
+
 	go func() {
-		// 🐐routine
-		torrentManager := start_client()
-		torrent := torrentManager.add_torrent("magnet:?xt=urn:btih:715C8751E48DFA6AC8E1F179C0C064B6AAB2C278")
-		ticker := time.NewTicker(time.Second)
-		defer ticker.Stop()
+		var lastBytes int64 = 0
+		for range ticker.C {
+			currentBytes := torrent.BytesCompleted()
+			bytesPerSecond := currentBytes - lastBytes
+			mbPerSecond := float64(bytesPerSecond) / 1024 / 1024
 
-		go func() {
-			var lastBytes int64 = 0
-			for range ticker.C {
-				currentBytes := torrent.BytesCompleted()
-				bytesPerSecond := currentBytes - lastBytes
-				mbPerSecond := float64(bytesPerSecond) / 1024 / 1024
+			completionRatio := float64(currentBytes) / float64(torrent.Info().TotalLength())
+			fmt.Printf("Progress: %.2f%% (%.2f MB/s)\n", completionRatio*100, mbPerSecond)
 
-				completionRatio := float64(currentBytes) / float64(torrent.Info().TotalLength())
-				fmt.Printf("Progress: %.2f%% (%.2f MB/s)\n", completionRatio*100, mbPerSecond)
-
-				lastBytes = currentBytes
-				if completionRatio >= 1.0 {
-					return
-				}
+			lastBytes = currentBytes
+			if completionRatio >= 1.0 {
+				return
 			}
-		}()
-
-		results := scrape_1337x("the forest")
-		fmt.Printf("Found %d test results!", len(results))
-	}()
+		}
+	}() **/
 
 	app := NewApp()
 	err := wails.Run(&options.App{
@@ -61,6 +55,10 @@ func main() {
 	if err != nil {
 		println("App error: ", err.Error())
 	}
+}
+
+func select_app() {
+
 }
 
 func printFileInfo(info os.FileInfo) {
