@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"bufio"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -76,6 +77,11 @@ func (lib *Library) add_library(gameData Game) error {
 	return nil
 }
 
+func start_app() {
+<<<<<<< HEAD
+=======
+	reader := bufio.NewReader(os.Stdin)
+>>>>>>> 43e6f58 (Added functioning sidebar to UI and search bar (not functioning yet))
 func (lib *Library) start_app() {
 	reader := bufio.NewReader(os.Stdin)
 
