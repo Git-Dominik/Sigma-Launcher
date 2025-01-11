@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"fmt"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -14,27 +15,26 @@ var assets embed.FS
 var torrentManager *Manager
 var library *Library
 
-func main() {
-	app := NewApp()
-
-	err := wails.Run(&options.App{
-		Title:  "Sigma Launcher",
-		Width:  600,
-		Height: 400,
-		AssetServer: &assetserver.Options{
-			Assets: assets,
-		},
-		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
-		OnStartup:        app.startup,
-		Bind: []interface{}{
-			app,
-		},
-	})
-
-	if err != nil {
-		println("App error: ", err.Error())
+// FormatBytes converts bytes to human-readable sizes (B, KB, MB, GB, TB)
+func FormatBytes(bytes int64) string {
+	const unit = 1024
+	if bytes < unit {
+		return fmt.Sprintf("%d B", bytes)
 	}
 
+	suffix := []string{"B", "KB", "MB", "GB", "TB"}
+	exp := 0
+	size := float64(bytes)
+
+	for size >= unit && exp < len(suffix)-1 {
+		size /= unit
+		exp++
+	}
+
+	return fmt.Sprintf("%.2f %s", size, suffix[exp])
+}
+
+func main() {
 	// 🐐routine
 	go func() {
 		library = get_library()
@@ -48,10 +48,9 @@ func main() {
 		for range ticker.C {
 			currentBytes := torrent.BytesCompleted()
 			bytesPerSecond := currentBytes - lastBytes
-			mbPerSecond := float64(bytesPerSecond) / 1024 / 1024
 
 			completionRatio := float64(currentBytes) / float64(torrent.Info().TotalLength())
-			fmt.Printf("Progress: %.2f%% (%.2f MB/s)\n", completionRatio*100, mbPerSecond)
+			fmt.Printf("Progress: %.2f%% (%s/s)\n", completionRatio*100, FormatBytes(bytesPerSecond))
 
 			lastBytes = currentBytes
 			if completionRatio >= 1.0 {
@@ -60,8 +59,27 @@ func main() {
 		}*/
 	}()
 
-	/*go func() {
-		results := scrape_1337x("the forest")
+	go func() {
+		results := scrape_1337x("goat simulator 3")
 		fmt.Printf("Found %d test results!", len(results))
-	}()*/
+	}()
+
+	app := NewApp()
+	err := wails.Run(&options.App{
+		Title:  "Sigma Launcher",
+		Width:  1000,
+		Height: 600,
+		AssetServer: &assetserver.Options{
+			Assets: assets,
+		},
+		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
+		OnStartup:        app.startup,
+		Bind: []interface{}{
+			app,
+		},
+	})
+
+	if err != nil {
+		println("App error: ", err.Error())
+	}
 }

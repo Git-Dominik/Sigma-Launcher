@@ -49,7 +49,7 @@ func get_library() *Library {
 
 	var library Library
 	if err := json.Unmarshal(bytes, &library); err != nil {
-		log.Printf("Error parsing library.json: %v", err)
+		log.Printf("Error unmarshalling library.json: %v", err)
 		return &Library{Games: []Game{}}
 	}
 
