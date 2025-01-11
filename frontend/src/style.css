@@ -150,3 +150,19 @@ html, body {
 .search-bar input::placeholder {
     color: rgb(118, 118, 118);
 }
+
+.content {
+    position: absolute;
+    top: 0;
+    left: 250px;
+    width: calc(100% - 250px);
+    height: 100%;
+}
+
+.page-content {
+    display: none;
+}
+
+.page-content.active {
+    display: block;
+}

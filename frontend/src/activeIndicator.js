@@ -1,25 +1,38 @@
-const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+document.addEventListener('DOMContentLoaded', () => {
+    const pageToItemId = {
+        '#discover': 'discover',
+        '#favorites': 'favorites',
+        '#recent': 'recent',
+    };
 
-const pageToItemId = {
-    'index.html': 'discover',
-    'discover.html': 'discover',
-    'favorites.html': 'favorites',
-    'recent.html': 'recent',
-};
+    const contentSections = {
+        'discover': document.getElementById('discover-content'),
+        'favorites': document.getElementById('favorites-content'),
+        'recent': document.getElementById('recent-content'),
+    };
 
-function setActiveItem() {
-    const activeItemId = pageToItemId[currentPage];
+    function setActiveItem() {
+        const hash = window.location.hash || '#discover';
+        const activeItemId = pageToItemId[hash];
 
-    if (activeItemId) {
-        document.querySelectorAll('.sidebar-item').forEach(item => {
-            item.classList.remove('active');
-        });
+        if (activeItemId) {
+            document.querySelectorAll('.sidebar-item').forEach(item => {
+                item.classList.remove('active');
+            });
 
-        const activeItem = document.getElementById(activeItemId);
-        if (activeItem) {
-            activeItem.classList.add('active');
+            const activeItem = document.getElementById(activeItemId);
+            if (activeItem) {
+                activeItem.classList.add('active');
+            }
+
+            Object.values(contentSections).forEach(section => {
+                section.style.display = 'none';
+            });
+
+            contentSections[activeItemId].style.display = 'block';
         }
     }
-}
 
-setActiveItem();
+    window.addEventListener('hashchange', setActiveItem);
+    setActiveItem();
+});
