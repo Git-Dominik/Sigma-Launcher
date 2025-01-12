@@ -70,8 +70,11 @@ func main() {
 	app := NewApp()
 	err := wails.Run(&options.App{
 		Title:  "Sigma Launcher",
-		Width:  1000,
-		Height: 600,
+		Width:  1200,
+		Height: 900,
+
+		MinHeight: 700,
+		MinWidth:  950,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
