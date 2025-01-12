@@ -188,6 +188,25 @@ html, body {
     font-weight: 400;
     color: var(--text-color);
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.game-library-title button {
+    outline: none;
+    border: none;
+    width: 40px;
+    height: 40px;
+    color: var(--secondary-text-color);
+    border-radius: 15px;
+    background-color: var(--hover-background-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.game-library-title button:hover{
+    color: var(--text-color) !important;
 }
 
 .game-library-game-box {
