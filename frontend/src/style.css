@@ -160,7 +160,7 @@ html, body {
     position: absolute;
     top: 0;
     left: 250px;
-    width: calc(100% - 250px);
+    width: calc(100% - 310px);
     height: 100%;
     padding-left: 20px;
 }
@@ -176,17 +176,23 @@ html, body {
 .game-library-container {
     width: 100%;
     height: auto;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
-    padding-top: 70px;
+    padding-top: 100px;
+}
+
+.game-library-title {
+    grid-column: 1 / -1;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--text-color);
+    margin-bottom: 10px;
 }
 
 .game-library-game-box {
-    height: 300px;
-    width: 200px;
+    width: 100%;
+    height: 350px;
     border-radius: 15px;
     background-color: var(--hover-background-color);
     display: flex;
@@ -195,13 +201,11 @@ html, body {
     overflow: hidden;
     position: relative;
     cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
-.game-library-title {
-    padding-top: 55px;
-    width: 100%;
-    height: auto;
-    color: var(--text-color);
+.game-library-game-box:hover {
+    transform: scale(1.05);
 }
 
 .game-box-info {
@@ -364,7 +368,6 @@ html, body {
     width: 69%;
     height: 100%;
     background-color: var(--progress-bar-fill-color);
-    box-shadow: 0px 0px 20px var(--progress-bar-fill-color);
     position: absolute;
     border-radius: 3px;
     transition: width 0.3s linear, color 0.3s linear;
