@@ -4,3 +4,4 @@ frontend/dist
 build
 
 library.json
+.torrent.bolt.db

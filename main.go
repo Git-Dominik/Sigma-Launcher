@@ -60,11 +60,11 @@ func main() {
 	}()
 
 	go func() {
-		results := scrape_1337x("goat simulator 3")
+		/*results := scrape_1337x("goat simulator 3")
 		for _, result := range results {
 			data := get_1337x_data(result)
 			fmt.Printf("Title: %s\nUploader: %s\nDownloads: %d\nDate: %s\n\n", data.Title, data.Uploader, data.Downloads, data.Date)
-		}
+		}*/
 	}()
 
 	app := NewApp()
