@@ -195,13 +195,17 @@ html, body {
     height: 350px;
     border-radius: 15px;
     background-color: var(--hover-background-color);
-    display: flex;
+    display: block;
     flex-direction: column;
     justify-content: flex-end;
     overflow: hidden;
     position: relative;
     cursor: pointer;
     transition: transform 0.3s ease;
+}
+
+.game-library-game-box[style*="display: none"] {
+    display: none !important;
 }
 
 .game-library-game-box:hover {
