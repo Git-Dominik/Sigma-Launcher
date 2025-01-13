@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 
-    <link rel="stylesheet" href="./src/style.css"/>
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <link rel="stylesheet" href="./src/style.css" />
 
     <script src="https://kit.fontawesome.com/37137ef7ef.js" crossorigin="anonymous"></script>
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 
     <title>Sigma</title>
 </head>
+
 <body>
     <div class="sidebar-container">
         <div class="sidebar-topbar-container">
@@ -18,6 +20,10 @@
         </div>
         <div class="sidebar-section">
             <div class="sidebar-section-title">
+            </div>
+            <div class="sidebar-item" id="library">
+                <div class="active-indicator"></div>
+                <a href="#library"><i class="fa-solid fa-book-open"></i> Library</a>
             </div>
             <div class="sidebar-item" id="discover">
                 <div class="active-indicator"></div>
@@ -35,7 +41,7 @@
     </div>
 
     <div class="content">
-        <div id="discover-content" class="page-content">
+        <div id="library-content" class="page-content">
             <div class="game-library-title">
                 <div class="Library-navigation-wrapper">
                     <button><i class="fa-solid fa-chevron-left"></i></button>
@@ -259,12 +265,15 @@
                 </div>
             </div>
 
-
-        <div id="game-page" class="game-page" style="display: none;">
-            <h1 id="game-page-title">Game Page</h1>
-            <p id="game-page-description">Description will go here.</p>
-            <button id="close-game-page">Close</button>
+            <div id="game-page" class="game-page" style="display: none;">
+                <h1 id="game-page-title">Game Page</h1>
+                <p id="game-page-description">Description will go here.</p>
+                <button id="close-game-page">Close</button>
+            </div>
         </div>
+
+        <div id="discover-content" class="page-content" style="display: none;">
+
         </div>
 
         <div id="favorites-content" class="page-content" style="display: none;">
@@ -281,7 +290,8 @@
         <div class="footer-content">
             <button id="placeholder-text"><i class="fa-solid fa-download"></i>No downloads in progress</button>
             <div class="download-item" id="download-item" style="display: none;">
-                <img src="https://steamuserimages-a.akamaihd.net/ugc/687094810512264399/04BA8A55B390D1ED0389E561E95775BCF33A9857/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="">
+                <img src="https://steamuserimages-a.akamaihd.net/ugc/687094810512264399/04BA8A55B390D1ED0389E561E95775BCF33A9857/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false"
+                    alt="">
                 <div class="download-content">
                     <div class="info-container">
                         <p class="game-name">Rust</p>
@@ -303,4 +313,5 @@
     <script src="./src/searchGames.js" type="module"></script>
     <script src="./src/isDownloading.js" type="module"></script>
 </body>
+
 </html>

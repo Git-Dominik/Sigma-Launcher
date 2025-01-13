@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     await updateLibrary();
 
-    const startData = await StartDownload("magnet:?xt=urn:btih:209c8226b299b308beaf2b9cd3fb49212dbd13ec");
+    const startData = await StartDownload("magnet:?xt=urn:btih:625174AAD7E1643AC2BA528FB3DB56CB4DE77D06");
     console.log(startData);
 
     async function check() {

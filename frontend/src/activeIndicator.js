@@ -1,11 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const pageToItemId = {
+        '#library': 'library',
         '#discover': 'discover',
         '#favorites': 'favorites',
         '#recent': 'recent',
     };
 
     const contentSections = {
+        'library': document.getElementById('library-content'),
         'discover': document.getElementById('discover-content'),
         'favorites': document.getElementById('favorites-content'),
         'recent': document.getElementById('recent-content'),
