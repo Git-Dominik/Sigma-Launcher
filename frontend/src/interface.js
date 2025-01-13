@@ -1,4 +1,4 @@
-export function gameButton(title, description, image) {
+/**export function gameButton(title, description, image) {
     const gameBox = document.createElement('div');
     gameBox.className = 'game-library-game-box';
     gameBox.style.backgroundImage = `url(${image})`;
@@ -15,4 +15,4 @@ export function gameButton(title, description, image) {
     `;
 
     return gameBox;
-}
+}**/
