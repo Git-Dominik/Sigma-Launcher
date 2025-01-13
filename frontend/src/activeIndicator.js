@@ -67,3 +67,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const allButton = document.getElementById('all-button');
+    const favoritesButton = document.getElementById('favorites-button');
+
+    allButton.addEventListener('click', function() {
+        allButton.classList.add('active');
+        favoritesButton.classList.remove('active');
+    });
+
+    favoritesButton.addEventListener('click', function() {
+        favoritesButton.classList.add('active');
+        allButton.classList.remove('active');
+    });
+
+    allButton.classList.add('active');
+});

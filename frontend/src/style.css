@@ -76,6 +76,10 @@ html, body {
     position: relative;
 }
 
+.sidebar-item a:hover {
+    background-color: rgb(29, 29, 29);
+}
+
 .sidebar-item a {
     width: 90%;
     height: 100%;
@@ -108,10 +112,18 @@ html, body {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
-
-.sidebar-item.active .active-indicator {
-    opacity: 1;
-    animation: growHeight 0.3s ease forwards;
+.active-indicator-horizontal {
+    height: 10px;
+    width: 100%;
+    background-color: var(--accent-color);
+    box-shadow: 0px 0px 20px var(--accent-color);
+    position: absolute;
+    left: 0;
+    top: 110%;
+    transform: translateY(-50%);
+    border-radius: 100px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 @keyframes growHeight {
@@ -122,6 +134,19 @@ html, body {
         height: 35px;
     }
 }
+@keyframes growWidth {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+.sidebar-item.active .active-indicator {
+    opacity: 1;
+    animation: growHeight 0.3s ease forwards;
+}
 
 .search-bar {
     width: 40%;
@@ -129,7 +154,6 @@ html, body {
     background-color: rgba(50, 50, 50, 1);
     border-radius: 20px;
     display: flex;
-    position: fixed;
     top: 30px;
     align-items: center;
     padding: 0 20px;
@@ -177,7 +201,7 @@ html, body {
     width: 100%;
     height: auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
     gap: 20px;
     padding-top: 30px;
 }
@@ -187,10 +211,121 @@ html, body {
     font-size: 24px;
     font-weight: 400;
     color: var(--text-color);
-    margin-top: 100px;
+    margin-top: 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-bottom: 30px;
+    border-bottom: 2px solid var(--hover-background-color);
+}
+
+.Library-settings-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.add-game-to-library-wrapper button {
+    outline: none;
+    border: none;
+    padding: 10px 20px;
+    color: var(--secondary-text-color);
+    border-radius: 15px;
+    background-color: var(--hover-background-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    gap: 10px;
+}
+
+.add-game-to-library-wrapper button:hover {
+    color: var(--text-color);
+}
+
+.Library-navigation-wrapper {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.Library-settings-wrapper {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: auto;
+    gap: 5px;
+    font-size: 16px;
+    color: var(--secondary-text-color);
+}
+
+
+.Library-settings-wrapper button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--background-color);
+}
+
+
+
+.Library-favorites-container {
+    margin-top: 20px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    gap: 20px;
+    position: relative;
+}
+
+.Library-favorites-container button {
+    background: none;
+    border: none;
+    color: var(--secondary-text-color);
+    font-size: 22px;
+    cursor: pointer;
+    padding: 5px 10px;
+    position: relative;
+    transition: color 0.3s ease;
+    transition: background-color 0.3s ease;
+    border-radius: 15px;
+}
+
+.Library-favorites-container button:hover {
+   background-color: rgb(29, 29, 29);
+}
+
+.Library-favorites-container button.active {
+    color: var(--accent-color);
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.Library-favorites-container button.active .active-indicator-horizontal {
+    opacity: 1;
+    animation: growWidth 0.3s ease forwards;
+}
+
+.library-tools-wrapper {
+    width: 80%;
+    height: auto;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 10px;
+}
+
+.Library-option-container {
+    display: flex;
+    gap: 10px;
 }
 
 .game-library-title button {
@@ -211,7 +346,7 @@ html, body {
 
 .game-library-game-box {
     width: 100%;
-    height: 350px;
+    height: 300px;
     border-radius: 15px;
     background-color: var(--hover-background-color);
     display: block;
@@ -291,39 +426,6 @@ html, body {
     overflow-y: auto;
 }
 
-.download-container {
-    width: 100%;
-    height: auto;
-    max-height: 300px;
-    position: absolute;
-    bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    padding: 0 20px;
-    padding-bottom: 10px;
-    box-sizing: border-box;
-    overflow-y: auto;
-}
-
-.download-container::-webkit-scrollbar {
-    width: 8px;
-}
-
-.download-container::-webkit-scrollbar-thumb {
-    background-color: var(--secondary-text-color);
-    border-radius: 10px;
-    border: 2px solid var(--game-box-info-background-color);
-}
-
-.download-container::-webkit-scrollbar-track {
-    background-color: var(--game-box-info-background-color);
-    border-radius: 10px;
-}
-
-.download-container::-webkit-scrollbar-thumb:hover {
-    background-color: var(--accent-color);
-}
 
 .download-item {
     display: flex;
@@ -331,11 +433,23 @@ html, body {
     align-items: center;
     gap: 10px;
     cursor: pointer;
+    width: 0;
+    overflow: hidden;
+    animation: ExpandDownload 0.9s ease forwards;
+}
+
+@keyframes ExpandDownload {
+    from {
+        width: 10%;
+    }
+    to {
+        width: 20%;
+    }
 }
 
 .download-item img {
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
     border-radius: 10px;
     object-fit: cover;
 }
@@ -391,9 +505,43 @@ html, body {
     width: 69%;
     height: 100%;
     background-color: var(--progress-bar-fill-color);
+    box-shadow: 0px 0px 20px var(--accent-color);
     position: absolute;
     border-radius: 3px;
     transition: width 0.3s linear, color 0.3s linear;
     top: 0;
     left: 0;
+}
+
+.app-footer {
+    width: 100%;
+    height: 80px;
+    background-color: rgb(22, 22, 22);
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.app-footer h1 {
+    font-size: 14px;
+}
+
+.app-footer button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    padding: 0 20px;
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
 }
