@@ -4,6 +4,8 @@ import {main} from '../models';
 
 export function AddGame():Promise<boolean>;
 
+export function GetJSON(arg1:string):Promise<string>;
+
 export function GetLibrary():Promise<{[key: number]: main.Game}>;
 
 export function StartGame(arg1:number):Promise<boolean>;

@@ -2,12 +2,15 @@ package main
 
 import (
 	"context"
+	"io"
+	"net/http"
 	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
 
 	"github.com/sqweek/dialog"
+	"gopkg.in/ini.v1"
 )
 
 // App struct
@@ -34,21 +37,73 @@ func (a *App) StartGame(app_id int) bool {
 	return library.start_app(app_id)
 }
 
+func (a *App) GetJSON(url string) string {
+	res, err := http.Get(url)
+	if err != nil {
+		return ""
+	}
+
+	defer res.Body.Close()
+
+	json, err := io.ReadAll(res.Body)
+	if err != nil {
+		return ""
+	}
+
+	return string(json)
+}
+
+func GetOnlineFix(filename string) int {
+	cfg, err := ini.Load(filepath.Join(filepath.Dir(filename), "OnlineFix.ini"))
+	if err != nil {
+		dialog.Message("Error: OnlineFix.ini not found in game directory.").Error()
+		return 0
+	}
+
+	section, err := cfg.GetSection("Main")
+	if err != nil {
+		dialog.Message("Error: Main section not found in OnlineFix.ini").Error()
+		return 0
+	}
+
+	val, err := section.GetKey("RealAppId")
+	if err != nil {
+		dialog.Message("Error: AppID key not found in OnlineFix section of OnlineFix.ini").Error()
+		return 0
+	}
+
+	appid, err := strconv.Atoi(strings.TrimSpace(val.String()))
+	if err != nil {
+		dialog.Message("Error: Invalid Steam App ID in onlinefix.ini").Error()
+	}
+
+	return appid
+}
+
 func (a *App) AddGame() bool {
 	filename, err := dialog.File().Filter("Executable file", "exe").Load()
 	if err != nil {
 		return false
 	}
 
+	appid := -1
+
 	appidBytes, err := os.ReadFile(filepath.Join(filepath.Dir(filename), "steam_appid.txt"))
 	if err != nil {
 		dialog.Message("Error: steam_appid.txt not found in game directory.").Error()
-		return false
+		appid = GetOnlineFix(filename)
 	}
 
-	appid, err := strconv.Atoi(strings.TrimSpace(string(appidBytes)))
-	if err != nil {
-		dialog.Message("Error: Invalid Steam App ID in steam_appid.txt").Error()
+	if appid == -1 {
+		appid, err = strconv.Atoi(strings.TrimSpace(string(appidBytes)))
+		if err != nil {
+			dialog.Message("Error: Invalid Steam App ID in steam_appid.txt").Error()
+			return false
+		}
+	}
+
+	if appid == 0 {
+		dialog.Message("big faal").Error()
 		return false
 	}
 

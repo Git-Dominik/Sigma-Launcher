@@ -10,6 +10,8 @@ require (
 	github.com/wailsapp/wails/v2 v2.9.2
 )
 
+require gopkg.in/ini.v1 v1.67.0
+
 require (
 	github.com/PuerkitoBio/goquery v1.10.1 // indirect
 	github.com/RoaringBitmap/roaring v1.2.3 // indirect
