@@ -4,8 +4,12 @@ import {main} from '../models';
 
 export function AddGame():Promise<boolean>;
 
+export function GetDownloads():Promise<Array<main.GameData>>;
+
 export function GetJSON(arg1:string):Promise<string>;
 
 export function GetLibrary():Promise<{[key: number]: main.Game}>;
+
+export function StartDownload(arg1:string):Promise<main.GameData>;
 
 export function StartGame(arg1:number):Promise<boolean>;

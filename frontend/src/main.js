@@ -1,8 +1,27 @@
-import { AddGame, GetLibrary, GetJSON } from "../wailsjs/go/main/App";
+import { AddGame, GetLibrary, GetJSON, GetDownloads, StartDownload } from "../wailsjs/go/main/App";
 import { gameButton } from "./interface";
 
 var gameList = document.querySelector(".game-library-container");
 var games;
+
+function humanFileSize(bytes) {
+    const thresh = 1000;
+  
+    if (Math.abs(bytes) < thresh) {
+      return bytes + ' B';
+    }
+  
+    const units = ['kB/s', 'MB/s', 'GB/s', 'TB/s'];
+    let u = -1;
+    const r = 10;
+  
+    do {
+      bytes /= thresh;
+      ++u;
+    } while (Math.round(Math.abs(bytes) * r) / r >= thresh && u < units.length - 1);
+  
+    return bytes.toFixed(1) + ' ' + units[u];
+}
 
 async function updateLibrary() {
     // clear oude games
@@ -30,10 +49,10 @@ function addGames(loaded, amount) {
     const newAmount = loaded + amount;
     const pageGames = Object.values(games).slice(loaded, newAmount);
 
-    pageGames.forEach((game) => {
+    for (const game of pageGames) {
         console.log(game);
         if (game.name === '') {
-            return;
+            continue;
         }
 
         gameList.appendChild(
@@ -43,7 +62,7 @@ function addGames(loaded, amount) {
                 `https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${game.appid}/library_hero.jpg`,
             ),
         );
-    });
+    }
 
     return newAmount;
 }
@@ -63,8 +82,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     });*/
 
     await updateLibrary();
+
+    const startData = await StartDownload("magnet:?xt=urn:btih:209c8226b299b308beaf2b9cd3fb49212dbd13ec");
+    console.log(startData);
+
+    async function check() {
+        const downloads = await GetDownloads();
+        for (const download of downloads) {
+            console.log(download);
+            console.log(humanFileSize(download.Speed));
+        }
+    }
+
+    window.setInterval(check, 1000)    
 });
 
-document.querySelector(".game-add-button").addEventListener("click", async () => {
+document.querySelector(".game-add-button").addEventListener("click", () => {
     AddGame();
 });

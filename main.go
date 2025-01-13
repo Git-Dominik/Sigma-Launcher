@@ -39,24 +39,6 @@ func main() {
 	go func() {
 		library = get_library()
 		torrentManager = start_client()
-
-		/*torrent := torrentManager.add_torrent("magnet:?xt=urn:btih:715C8751E48DFA6AC8E1F179C0C064B6AAB2C278")
-		ticker := time.NewTicker(time.Second)
-		defer ticker.Stop()
-
-		var lastBytes int64 = 0
-		for range ticker.C {
-			currentBytes := torrent.BytesCompleted()
-			bytesPerSecond := currentBytes - lastBytes
-
-			completionRatio := float64(currentBytes) / float64(torrent.Info().TotalLength())
-			fmt.Printf("Progress: %.2f%% (%s/s)\n", completionRatio*100, FormatBytes(bytesPerSecond))
-
-			lastBytes = currentBytes
-			if completionRatio >= 1.0 {
-				return
-			}
-		}*/
 	}()
 
 	go func() {

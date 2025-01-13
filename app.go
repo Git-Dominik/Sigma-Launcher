@@ -37,6 +37,25 @@ func (a *App) StartGame(app_id int) bool {
 	return library.start_app(app_id)
 }
 
+func (a *App) GetDownloads() []GameData {
+	games := make([]GameData, 0, len(torrentManager.games))
+
+	for _, game := range torrentManager.games {
+		games = append(games, game)
+	}
+	
+	return games
+}
+
+func (a *App) StartDownload(magnet string) GameData {
+	t, err := torrentManager.add_torrent(magnet)
+	if err != nil {
+		return GameData{}
+	}
+
+	return torrentManager.games[t.Info().Name]
+}
+
 func (a *App) GetJSON(url string) string {
 	res, err := http.Get(url)
 	if err != nil {

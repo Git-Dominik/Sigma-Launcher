@@ -6,12 +6,20 @@ export function AddGame() {
   return window['go']['main']['App']['AddGame']();
 }
 
+export function GetDownloads() {
+  return window['go']['main']['App']['GetDownloads']();
+}
+
 export function GetJSON(arg1) {
   return window['go']['main']['App']['GetJSON'](arg1);
 }
 
 export function GetLibrary() {
   return window['go']['main']['App']['GetLibrary']();
+}
+
+export function StartDownload(arg1) {
+  return window['go']['main']['App']['StartDownload'](arg1);
 }
 
 export function StartGame(arg1) {
