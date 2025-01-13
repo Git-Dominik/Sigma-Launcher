@@ -430,17 +430,16 @@ html, body {
     align-items: center;
     gap: 10px;
     cursor: pointer;
-    width: 0;
+    min-width: 40%;
     overflow: hidden;
-    animation: ExpandDownload 0.9s ease forwards;
+    animation: ExpandDownload 0.3s ease forwards;
 }
-
 @keyframes ExpandDownload {
     from {
-        width: 10%;
+        min-width: 10%;
     }
     to {
-        width: 20%;
+        min-width: 40%;
     }
 }
 
