@@ -179,7 +179,7 @@ html, body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
-    padding-top: 100px;
+    padding-top: 30px;
 }
 
 .game-library-title {
@@ -187,7 +187,7 @@ html, body {
     font-size: 24px;
     font-weight: 400;
     color: var(--text-color);
-    margin-bottom: 10px;
+    margin-top: 100px;
     display: flex;
     align-items: center;
     justify-content: space-between;

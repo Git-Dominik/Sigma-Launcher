@@ -2,6 +2,8 @@ export function gameButton(title, description, image) {
     const gameBox = document.createElement('div');
     gameBox.className = 'game-library-game-box';
     gameBox.style.backgroundImage = `url(${image})`;
+    gameBox.style.backgroundSize = 'cover';
+    gameBox.style.backgroundPosition = 'center';
     gameBox.innerHTML = `
         <div class="game-box-info">
             <div class="text-container">

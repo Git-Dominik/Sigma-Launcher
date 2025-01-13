@@ -1,45 +1,70 @@
-import { AddGame, GetLibrary } from "../wailsjs/go/main/App";
+import { AddGame, GetLibrary, GetJSON } from "../wailsjs/go/main/App";
 import { gameButton } from "./interface";
 
 var gameList = document.querySelector(".game-library-container");
+var games;
 
-async function updateLibrary(container) {
-    alert("Library updating");
-
+async function updateLibrary() {
     // clear oude games
-    container.textContent = "";
+    gameList.textContent = "";
 
     // loop over nieuwe
     const library = await GetLibrary();
-    const games = Array.isArray(library) ? library : Object.values(library);
-    games.forEach((game) => {
-        console.log(game);
+    for (const [appid, gameData] of Object.entries(library)) {
+        console.log(gameData);
+
+        var steamData = JSON.parse(await GetJSON(`https://store.steampowered.com/api/appdetails?appids=${appid}`))[appid].data;
+        console.log(steamData);
+        
         gameList.appendChild(
             gameButton(
-                "Game Title",
+                steamData.name,
+                steamData.publishers[0],
+                `https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${appid}/library_600x900.jpg`
+            ),
+        );
+    }
+}
+
+function addGames(loaded, amount) {
+    const newAmount = loaded + amount;
+    const pageGames = Object.values(games).slice(loaded, newAmount);
+
+    pageGames.forEach((game) => {
+        console.log(game);
+        if (game.name === '') {
+            return;
+        }
+
+        gameList.appendChild(
+            gameButton(
+                game.name,
                 "Game Description",
                 `https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${game.appid}/library_hero.jpg`,
             ),
         );
     });
 
-    // plus knop
-    /*const input = document.createElement("button");
-    input.textContent = "Add Game";
-    input.onclick = async () => {
-        var ok = await AddGame();
-        if (ok) {
-            updateLibrary(container);
-        }
-    };
-
-    container.appendChild(input);*/
+    return newAmount;
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-    const container = document.createElement("div");
-    container.id = "container";
-    document.body.appendChild(container);
 
-    // await updateLibrary(container);
+document.addEventListener("DOMContentLoaded", async () => {
+    /*games = JSON.parse(await GetGames()).applist.apps;
+
+    var loaded = 0;
+    loaded = addGames(loaded, 30);
+
+    // Infinite scroll
+    window.addEventListener('scroll', () => {
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
+            loaded = addGames(loaded, 20);
+        }
+    });*/
+
+    await updateLibrary();
+});
+
+document.querySelector(".game-add-button").addEventListener("click", async () => {
+    AddGame();
 });
