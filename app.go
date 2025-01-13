@@ -111,6 +111,19 @@ func (a *App) AddGame() bool {
 	if err != nil {
 		dialog.Message("Error: steam_appid.txt not found in game directory.").Error()
 		appid = GetOnlineFix(filename)
+		appid = GetOnlineFix(filename)
+	}
+
+	if appid == -1 {
+		appid, err = strconv.Atoi(strings.TrimSpace(string(appidBytes)))
+		if err != nil {
+			dialog.Message("Error: Invalid Steam App ID in steam_appid.txt").Error()
+			return false
+		}
+	}
+
+	if appid == 0 {
+		dialog.Message("big faal").Error()
 	}
 
 	if appid == -1 {
