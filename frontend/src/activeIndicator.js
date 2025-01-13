@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function setActiveItem() {
-        const hash = window.location.hash || '#discover';
+        const hash = window.location.hash || '#library';
         const activeItemId = pageToItemId[hash];
 
         if (activeItemId) {

@@ -1,9 +1,16 @@
-export function gameButton(title, description, image) {
+import { StartGame } from "../wailsjs/go/main/App";
+
+export function gameButton(title, description, image, appid) {
     const gameBox = document.createElement('div');
     gameBox.className = 'game-library-game-box';
     gameBox.style.backgroundImage = `url(${image})`;
     gameBox.style.backgroundSize = 'cover';
     gameBox.style.backgroundPosition = 'center';
+
+    gameBox.onclick = () => {
+        StartGame(Number.parseInt(appid));
+    };
+
     gameBox.innerHTML = `
         <div class="game-box-info">
             <div class="text-container">
@@ -12,7 +19,7 @@ export function gameButton(title, description, image) {
             </div>
             <button><i class="fa-solid fa-ellipsis"></i></button>
         </div>
-    `;
+    `;  
 
     return gameBox;
 }

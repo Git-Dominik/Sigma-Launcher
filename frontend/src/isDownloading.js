@@ -15,4 +15,4 @@ function toggleDownload() {
     isDownloading = !isDownloading;
 }
 
-// toggleDownload();
+toggleDownload();

@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"time"
 )
 
@@ -15,6 +16,7 @@ type Game struct {
 	PlayTime    int    `json:"playtime"`
 	Achievments []int  `json:"achievments"`
 	Executable  string `json:"executable"`
+	Running     bool   `json:"running"`
 }
 
 type Library struct {
@@ -78,26 +80,40 @@ func (lib *Library) add_library(gameData Game) error {
 }
 
 func (lib *Library) start_app(appID int) bool {
-	game, ok := lib.Games[appID]
-	if !ok {
-		return false
-	}
+	game := lib.Games[appID]
 
 	cmd := exec.Command(game.Executable)
+	cmd.Dir = filepath.Dir(game.Executable)
 	cmd.Start()
+
+	fmt.Printf("Started game with PID: %d\n", cmd.Process.Pid)
+
+	game.Running = true
+	lib.add_library(game)
 
 	go func() {
 		seconds := 0
+		ticker := time.NewTicker(time.Second)
+		defer ticker.Stop()
+
+		done := make(chan error, 1)
+		go func() {
+			done <- cmd.Wait()
+		}()
 
 		for {
-			process, err := os.FindProcess(cmd.Process.Pid)
-			if process == nil || err != nil {
-				fmt.Printf("Game quit after %d\n", seconds)
-				break
-			}
+			select {
+			case <-ticker.C:
+				fmt.Printf("Game running for %d seconds\n", seconds)
+				seconds++
+			case <-done:
+				fmt.Printf("Game quit after %d seconds\n", seconds)
 
-			seconds++
-			time.Sleep(time.Second)
+				game.Running = false
+				game.PlayTime += seconds
+				lib.add_library(game)
+				return
+			}
 		}
 	}()
 

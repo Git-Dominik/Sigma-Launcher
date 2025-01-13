@@ -39,7 +39,8 @@ async function updateLibrary() {
             gameButton(
                 steamData.name,
                 steamData.publishers[0],
-                `https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${appid}/library_600x900.jpg`
+                `https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${appid}/library_600x900.jpg`,
+                appid
             ),
         );
     }
@@ -60,6 +61,7 @@ function addGames(loaded, amount) {
                 game.name,
                 "Game Description",
                 `https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${game.appid}/library_hero.jpg`,
+                game.appid
             ),
         );
     }
@@ -83,8 +85,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     await updateLibrary();
 
-    const startData = await StartDownload("magnet:?xt=urn:btih:625174AAD7E1643AC2BA528FB3DB56CB4DE77D06");
-    console.log(startData);
+    // const startData = await StartDownload("magnet:?xt=urn:btih:625174AAD7E1643AC2BA528FB3DB56CB4DE77D06");
+    // console.log(startData);
 
     async function check() {
         const downloads = await GetDownloads();
@@ -94,7 +96,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    window.setInterval(check, 1000)    
+    window.setInterval(check, 1000)
 });
 
 document.querySelector(".game-add-button").addEventListener("click", () => {
