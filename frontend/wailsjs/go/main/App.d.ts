@@ -10,6 +10,8 @@ export function GetJSON(arg1:string):Promise<string>;
 
 export function GetLibrary():Promise<{[key: number]: main.Game}>;
 
+export function ScrapeTorrents(arg1:string):Promise<Array<main.Game1337x>>;
+
 export function StartDownload(arg1:string):Promise<main.GameData>;
 
 export function StartGame(arg1:number):Promise<boolean>;

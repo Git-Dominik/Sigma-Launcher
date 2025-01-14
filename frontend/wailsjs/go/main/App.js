@@ -18,6 +18,10 @@ export function GetLibrary() {
   return window['go']['main']['App']['GetLibrary']();
 }
 
+export function ScrapeTorrents(arg1) {
+  return window['go']['main']['App']['ScrapeTorrents'](arg1);
+}
+
 export function StartDownload(arg1) {
   return window['go']['main']['App']['StartDownload'](arg1);
 }

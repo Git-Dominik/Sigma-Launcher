@@ -43,7 +43,7 @@ func (a *App) GetDownloads() []GameData {
 	for _, game := range torrentManager.games {
 		games = append(games, game)
 	}
-	
+
 	return games
 }
 
@@ -54,6 +54,17 @@ func (a *App) StartDownload(magnet string) GameData {
 	}
 
 	return torrentManager.games[t.Info().Name]
+}
+
+func (a *App) ScrapeTorrents(item string) []Game1337x {
+	links := scrape_1337x(item)
+	results := make([]Game1337x, 0, len(links))
+
+	for _, link := range links {
+		results = append(results, get_1337x_data(link))
+	}
+
+	return results
 }
 
 func (a *App) GetJSON(url string) string {

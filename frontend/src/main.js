@@ -1,4 +1,4 @@
-import { AddGame, GetLibrary, GetJSON, GetDownloads, StartDownload } from "../wailsjs/go/main/App";
+import { AddGame, GetLibrary, GetJSON, GetDownloads, StartDownload, ScrapeTorrents } from "../wailsjs/go/main/App";
 import { gameButton, setDownloadItem } from "./interface";
 import { toggleDownload } from "./isDownloading";
 
@@ -11,29 +11,28 @@ let games;
 
 function humanFileSize(bytes) {
     const thresh = 1000;
-  
+
     if (Math.abs(bytes) < thresh) {
-      return bytes + ' B';
+        return bytes + ' B';
     }
-  
+
     const units = ['kB/s', 'MB/s', 'GB/s', 'TB/s'];
     let u = -1;
     const r = 10;
-  
+
     do {
-      bytes /= thresh;
-      ++u;
+        bytes /= thresh;
+        ++u;
     } while (Math.round(Math.abs(bytes) * r) / r >= thresh && u < units.length - 1);
-  
+
     return bytes.toFixed(1) + ' ' + units[u];
 }
 
-async function updateLibrary() {
+async function updateLibrary(library) {
     // clear oude games
     libraryList.textContent = "";
 
     // loop over nieuwe
-    const library = await GetLibrary();
     for (const [appid, gameData] of Object.entries(library)) {
         console.log(gameData);
 
@@ -78,10 +77,9 @@ function addGames(loaded, amount) {
     return currentLoaded;
 }
 
-async function fillFavorites() {
+async function updateFavorites(library) {
     favoriteList.innerHTML = "";
 
-    let library = await GetLibrary();
     for (const [appid, game] of Object.entries(library)) {
         if (game.favorite === true) {
             favoriteList.appendChild(
@@ -103,7 +101,7 @@ async function downloadCheck() {
     const download = (await GetDownloads())[0];
     if (download != undefined) {
         console.log(download);
-        
+
         toggleDownload(true);
         setDownloadItem(download.Progress, humanFileSize(download.Speed), download.Name);
     } else {
@@ -111,6 +109,13 @@ async function downloadCheck() {
     }
 
     console.log("Checking downloads");
+}
+
+async function refresh() {
+    const library = await GetLibrary();
+
+    await updateLibrary(library);
+    await updateFavorites(library);
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -134,16 +139,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     let gameAmount = 0;
     addGames(gameAmount, 20);*/
 
-    const startData = await StartDownload("magnet:?xt=urn:btih:625174AAD7E1643AC2BA528FB3DB56CB4DE77D06");
-    console.log(startData);
+    refresh();
 
-    updateLibrary();
-    fillFavorites();
+    console.log(await ScrapeTorrents("goat simulator 3"));
 
-    window.setInterval(downloadCheck, 1000)
-});
+    setInterval(checkDownloads, 1000);
 
-document.querySelector(".game-add-button").addEventListener("click", () => {
-    AddGame();
-    updateLibrary();
+    document.querySelector(".game-add-button").addEventListener("click", async () => {
+        await AddGame();
+        updateLibrary();
+    });
 });
