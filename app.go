@@ -100,7 +100,7 @@ func GetOnlineFix(filename string) int {
 }
 
 func (a *App) AddGame() bool {
-	filename, err := dialog.File().Filter("Executable file", "exe").Load()
+	filename, err := dialog.File().Filter("Executable file", "exe").Title("Select game main executable file").Load()
 	if err != nil {
 		return false
 	}
@@ -110,7 +110,6 @@ func (a *App) AddGame() bool {
 	appidBytes, err := os.ReadFile(filepath.Join(filepath.Dir(filename), "steam_appid.txt"))
 	if err != nil {
 		dialog.Message("Error: steam_appid.txt not found in game directory.").Error()
-		appid = GetOnlineFix(filename)
 		appid = GetOnlineFix(filename)
 	}
 

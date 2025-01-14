@@ -60,7 +60,7 @@ func (manager Manager) add_torrent(magnetLink string) (*torrent.Torrent, error) 
 
 				game := manager.games[t.Info().Name]
 				game.Speed = currentBytes - lastBytes
-				game.Progress = int64(float64(currentBytes)/float64(t.Info().TotalLength()) * 100)
+				game.Progress = int64(float64(currentBytes)/float64(t.Info().TotalLength())) * 100
 
 				manager.games[t.Info().Name] = game
 

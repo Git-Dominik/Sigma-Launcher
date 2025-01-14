@@ -15,7 +15,6 @@ var assets embed.FS
 var torrentManager *Manager
 var library *Library
 
-// FormatBytes converts bytes to human-readable sizes (B, KB, MB, GB, TB)
 func FormatBytes(bytes int64) string {
 	const unit = 1024
 	if bytes < unit {

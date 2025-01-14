@@ -1,7 +1,7 @@
-import { AddGame, GetLibrary, GetJSON, GetDownloads, StartDownload } from "../wailsjs/go/main/App";
+import { AddGame, GetLibrary, GetJSON, GetDownloads } from "../wailsjs/go/main/App";
 import { gameButton } from "./interface";
 
-var gameList = document.querySelector(".game-library-container");
+var gameList;
 var games;
 
 function humanFileSize(bytes) {
@@ -71,9 +71,11 @@ function addGames(loaded, amount) {
 
 
 document.addEventListener("DOMContentLoaded", async () => {
-    /*games = JSON.parse(await GetGames()).applist.apps;
+    gameList = document.querySelector(".game-library-container");
+    games = await GetJSON("https://api.steampowered.com/ISteamApps/GetAppList/v2");
+    console.log(games);
 
-    var loaded = 0;
+    /*var loaded = 0;
     loaded = addGames(loaded, 30);
 
     // Infinite scroll
@@ -84,7 +86,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });*/
 
     await updateLibrary();
-
+    
     // const startData = await StartDownload("magnet:?xt=urn:btih:625174AAD7E1643AC2BA528FB3DB56CB4DE77D06");
     // console.log(startData);
 
@@ -101,4 +103,5 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 document.querySelector(".game-add-button").addEventListener("click", () => {
     AddGame();
+    updateLibrary();
 });
