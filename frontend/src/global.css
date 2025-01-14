@@ -1,0 +1,40 @@
+:root {
+    --background-color: rgb(25, 25, 25);
+    --text-color: white;
+    --secondary-text-color: rgb(118, 118, 118);
+    --accent-color: rgb(229, 63, 51);
+    --hover-background-color: rgba(255, 255, 255, 0.043);
+    --progress-bar-background-color: rgba(255, 255, 255, 0.043);
+    --game-box-info-background-color: rgb(30, 30, 30);
+    --outline: #383838;
+    --hover-sometimes: rgb(29, 29, 29);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Inter';
+    letter-spacing: 1.3px;
+    box-sizing: border-box;
+}
+
+html, body {
+    background-color: var(--background-color);
+    height: 100%;
+    overscroll-behavior: none;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--secondary-text-color);
+    border-radius: 4px;
+}

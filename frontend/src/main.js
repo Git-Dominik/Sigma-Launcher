@@ -129,10 +129,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
             loaded = addGames(loaded, 20);
         }
-    });
-    
-    let gameAmount = 0;
-    addGames(gameAmount, 20);*/
+    });*/
+
+    await updateLibrary();
 
     const startData = await StartDownload("magnet:?xt=urn:btih:625174AAD7E1643AC2BA528FB3DB56CB4DE77D06");
     console.log(startData);
@@ -147,3 +146,4 @@ document.querySelector(".game-add-button").addEventListener("click", () => {
     AddGame();
     updateLibrary();
 });
+

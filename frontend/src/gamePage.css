@@ -1,0 +1,12 @@
+.game-page {
+    position: fixed;
+    top: 0;
+    left: 250px;
+    width: calc(100% - 250px);
+    height: 100%;
+    background-color: var(--background-color);
+    padding: 20px;
+    z-index: 3;
+    overflow-y: auto;
+}
+
