@@ -1,5 +1,11 @@
 import { StartGame } from "../wailsjs/go/main/App";
 
+let percentage_element = document.querySelector(".progress-percentage");
+let bar_element = document.querySelector(".progress-bar-fill");
+let speed_element = document.querySelector("#download-speed");
+let download_image = document.querySelector("#download-image");
+let download_name = document.querySelector(".game-name");
+
 export function gameButton(title, description, image, appid) {
     const gameBox = document.createElement('div');
     gameBox.className = 'game-library-game-box';
@@ -25,12 +31,6 @@ export function gameButton(title, description, image, appid) {
 }
 
 export function setDownloadItem(procentage, speed, name) {
-    let percentage_element = document.querySelector(".progress-percentage");
-    let bar_element = document.querySelector(".progress-bar-fill");
-    let speed_element = document.querySelector("#download-speed");
-    let download_image = document.querySelector("#download-image");
-    let download_name = document.querySelector(".game-name");
-
     bar_element.style.width = `${procentage}%`;
     speed_element.innerHTML = speed;
     download_name.innerHTML = name;
