@@ -198,6 +198,34 @@ html, body {
     display: block;
 }
 
+/* copied from game-library-container */
+.game-discover-container {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 20px;
+    padding-top: 30px;
+}
+
+.game-favorites-container {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 20px;
+    padding-top: 30px;
+}
+
+.game-recent-container {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 20px;
+    padding-top: 30px;
+}
+
 .game-library-container {
     width: 100%;
     height: auto;

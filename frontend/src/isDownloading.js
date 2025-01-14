@@ -1,18 +1,21 @@
-let isDownloading = true;
+let downloadItem;
+let placeholderText;
 
-function toggleDownload() {
-    const downloadItem = document.getElementById('download-item');
-    const placeholderText = document.getElementById('placeholder-text');
+export function toggleDownload(toggle) {
+    if (downloadItem == undefined || placeholderText == undefined) {
+        return;
+    }
 
-    if (isDownloading) {
+    if (toggle) {
         downloadItem.style.display = 'flex';
         placeholderText.style.display = 'none';
     } else {
         downloadItem.style.display = 'none';
         placeholderText.style.display = 'block';
     }
-
-    isDownloading = !isDownloading;
 }
 
-toggleDownload();
+document.addEventListener('DOMContentLoaded', function () {
+    downloadItem = document.getElementById('download-item');
+    placeholderText = document.getElementById('placeholder-text');
+});

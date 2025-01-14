@@ -143,6 +143,7 @@ func (a *App) AddGame() bool {
 		PlayTime:    0,
 		Achievments: []int{},
 		Executable:  filename,
+		Favorite:    false,
 	})
 
 	return libErr == nil

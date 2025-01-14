@@ -9,8 +9,8 @@ import (
 
 type GameData struct {
 	Name     string
-	Progress int64
-	Speed    int64
+	Progress int
+	Speed    int
 }
 
 type Manager struct {
@@ -48,24 +48,27 @@ func (manager Manager) add_torrent(magnetLink string) (*torrent.Torrent, error) 
 		Speed: 0,
 	}
 
+	// speed goroutine
 	go func() {
-		var lastBytes int64 = 0
+		var lastBytes int = 0
 
 		ticker := time.NewTicker(time.Second)
 		defer ticker.Stop()
 		for {
 			select {
 			case <-ticker.C:
-				currentBytes := t.BytesCompleted()
+				currentBytes := int(t.BytesCompleted())
+				completionRatio := float64(currentBytes)/float64(t.Info().TotalLength())
 
 				game := manager.games[t.Info().Name]
 				game.Speed = currentBytes - lastBytes
-				game.Progress = int64(float64(currentBytes)/float64(t.Info().TotalLength())) * 100
+				game.Progress = int(completionRatio * 100)
 
 				manager.games[t.Info().Name] = game
 
 				lastBytes = currentBytes
-				if float64(currentBytes)/float64(t.Info().TotalLength()) >= 1.0 {
+				if completionRatio >= 1.0 {
+					delete(manager.games, t.Info().Name)
 					return
 				}
 			}

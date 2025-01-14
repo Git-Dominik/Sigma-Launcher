@@ -17,6 +17,7 @@ type Game struct {
 	Achievments []int  `json:"achievments"`
 	Executable  string `json:"executable"`
 	Running     bool   `json:"running"`
+	Favorite    bool   `json:"favorite"`
 }
 
 type Library struct {
