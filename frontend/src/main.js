@@ -134,10 +134,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
             loaded = addGames(loaded, 20);
         }
-    });
-    
-    let gameAmount = 0;
-    addGames(gameAmount, 20);*/
+    });*/
+
+    await updateLibrary();
 
     refresh();
 

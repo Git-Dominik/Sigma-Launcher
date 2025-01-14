@@ -55,7 +55,8 @@ func main() {
 		Height: 900,
 
 		MinHeight: 700,
-		MinWidth:  950,
+		MinWidth:  1064,
+		Frameless: true,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
