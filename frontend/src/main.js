@@ -50,7 +50,7 @@ async function updateLibrary(library) {
     console.log("Libary has been updated");
 }
 
-function addGames(loaded, amount) {
+async function addGames(loaded, amount) {
     let currentLoaded = loaded;
     let remainingAmount = amount;
     let validGames = [];
@@ -64,10 +64,12 @@ function addGames(loaded, amount) {
     }
 
     for (const game of validGames) {
+        let steamData = JSON.parse(await GetJSON(`https://store.steampowered.com/api/appdetails?appids=${game.appid}`))[appid].data;
+
         discoverList.appendChild(
             gameButton(
                 game.name,
-                "Game Description",
+                steamData.publishers[0],
                 `https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${game.appid}/library_hero.jpg`,
                 game.appid
             ),
@@ -82,10 +84,12 @@ async function updateFavorites(library) {
 
     for (const [appid, game] of Object.entries(library)) {
         if (game.favorite === true) {
+            let steamData = JSON.parse(await GetJSON(`https://store.steampowered.com/api/appdetails?appids=${appid}`))[appid].data;
+
             favoriteList.appendChild(
                 gameButton(
                     game.name,
-                    "Game Description",
+                    steamData.publishers[0],
                     `https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${game.appid}/library_hero.jpg`,
                     game.appid
                 ),
@@ -97,11 +101,10 @@ async function updateFavorites(library) {
 }
 
 // tijdelijk pakken we de eerste van de downloads
-async function downloadCheck() {
+async function checkDownloads() {
     const download = (await GetDownloads())[0];
     if (download != undefined) {
         console.log(download);
-
         toggleDownload(true);
         setDownloadItem(download.Progress, humanFileSize(download.Speed), download.Name);
     } else {
@@ -113,9 +116,10 @@ async function downloadCheck() {
 
 async function refresh() {
     const library = await GetLibrary();
+    console.log(library);
 
-    await updateLibrary(library);
-    await updateFavorites(library);
+    updateLibrary(library);
+    updateFavorites(library);
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -124,7 +128,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     favoriteList = document.querySelector(".game-favorites-container");
     recentList = document.querySelector(".game-recent-container");
 
-    games = JSON.parse(await GetJSON("https://api.steampowered.com/ISteamApps/GetAppList/v2")).applist.apps;
+    // games = JSON.parse(await GetJSON("https://api.steampowered.com/ISteamApps/GetAppList/v2")).applist.apps;
 
     /*let loaded = 0;
     loaded = addGames(loaded, 30);
@@ -136,16 +140,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });*/
 
-    await updateLibrary();
-
     refresh();
-
     console.log(await ScrapeTorrents("goat simulator 3"));
+
+    await StartDownload("magnet:?xt=urn:btih:9FB620FFB9CB0D6F68AAA042DF9741D68221BF2D");
 
     setInterval(checkDownloads, 1000);
 
     document.querySelector(".game-add-button").addEventListener("click", async () => {
         await AddGame();
-        updateLibrary();
+        refresh();
     });
 });
