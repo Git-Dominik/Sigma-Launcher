@@ -6,18 +6,6 @@
     padding-top: 50px; /* Needed for topbar */
 }
 
-
-.search-underline {
-    width: 95%;
-    margin: auto;
-    background-color: var(--outline);
-    height: 1px;
-    position: absolute;
-    bottom: 0;
-    border-radius: 100px;
-}
-
-
 .sidebar-section {
     width: 100%;
     margin-top: 97px;
