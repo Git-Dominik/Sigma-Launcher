@@ -23,7 +23,7 @@
 
 .topbar-button {
     --wails-draggable: no-drag;
-    background: none;
+    background: none;   
     border: none;
     color: var(--secondary-text-color);
     font-size: 16px;

@@ -1,0 +1,12 @@
+.tippy-box[data-theme="custom"] {
+    background-color: var(--hover-background-color);
+    border: 1px solid var(--outline);
+    color: var(--secondary-text-color);
+    border-radius: 10px;
+    font-size: 14px;
+    padding: 0px 5px; 
+  }
+  
+  .tippy-box[data-theme="custom"] .tippy-arrow {
+    color: var(--hover-background-color);
+  }
