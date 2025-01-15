@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="./src/library.css">
     <link rel="stylesheet" href="./src/gamePage.css">
     <link rel="stylesheet" href="./src/topbar.css">
+    <link rel="stylesheet" href="./src/tippy.css">
 
     <script src="https://kit.fontawesome.com/37137ef7ef.js" crossorigin="anonymous"></script>
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
@@ -25,7 +26,8 @@
         <div class="topbar-left">
             <span class="app-name">Sigma Launcher</span>
         </div>
-        <div class="topbar-right">
+        <div class="topbar-right"><script src="https://unpkg.com/@popperjs/core@2"></script>
+            <script src="https://unpkg.com/tippy.js@6"></script>
             <button class="topbar-button" id="minimize-btn">
                 <i class="fa-solid fa-minus"></i>
             </button>
@@ -80,7 +82,7 @@
         <div id="library-content" class="page-content">
             <div class="Library-settings-container">
                 <div class="Library-settings-wrapper">
-                    <span>Sort by:</span><button>Time played <i class="fa-solid fa-chevron-down"></i></button>
+                    <span>Sort by:</span><button id="sort-library-by">Time played <i class="fa-solid fa-chevron-down"></i></button>
                 </div>
                 <div class="Library-favorites-container">
                     <button id="all-button" class="active">
@@ -94,7 +96,9 @@
                 </div>
                 <div class="add-game-to-library-wrapper">
                     <button id="refresh-page"><i class="fa-solid fa-arrows-rotate"></i></button>
-                    <button class="game-add-button">Import from PC<i class="fa-solid fa-desktop"></i></button>
+                    <button class="game-add-button" id="Import-from-PC-TT">
+                        Import from PC<i class="fa-solid fa-desktop"></i>
+                    </button>
                 </div>
             </div>
             <div class="game-library-container">
@@ -296,6 +300,7 @@
 
         <div id="discover-content" class="page-content" style="display: none;">
             <div class="game-discover-container">
+                <h1>jhfklhsadjkfhasdklhfkashfklasdkfasdfkasdhflkasd</h1>
             </div>
         </div>
 
@@ -339,6 +344,7 @@
     <script src="./src/isDownloading.js" type="module"></script>
     <script src="./src/topbar.js" type="module"></script>
     <script src="./src/refreshPage.js" type="module"></script>
+    <script src="./src/tippy.js" type="module"></script>
 </body>
 
 </html>

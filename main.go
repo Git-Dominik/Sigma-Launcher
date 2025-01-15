@@ -34,7 +34,7 @@ func FormatBytes(bytes int64) string {
 }
 
 func main() {
-	// 🐐routine
+	// 🐐routinewails
 	go func() {
 		library = get_library()
 		torrentManager = start_client()
