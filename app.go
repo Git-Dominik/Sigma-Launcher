@@ -132,10 +132,6 @@ func (a *App) AddGame() bool {
 		}
 	}
 
-	if appid == 0 {
-		dialog.Message("big faal").Error()
-	}
-
 	if appid == -1 {
 		appid, err = strconv.Atoi(strings.TrimSpace(string(appidBytes)))
 		if err != nil {
@@ -145,7 +141,6 @@ func (a *App) AddGame() bool {
 	}
 
 	if appid == 0 {
-		dialog.Message("big faal").Error()
 		return false
 	}
 

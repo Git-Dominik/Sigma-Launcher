@@ -1,4 +1,4 @@
-import { AddGame, GetLibrary, GetJSON, GetDownloads, StartDownload, ScrapeTorrents } from "../wailsjs/go/main/App";
+import { AddGame, GetLibrary, GetJSON, GetDownloads, StartDownload, ScrapeTorrents } from "../../wailsjs/go/main/App";
 import { gameButton, setDownloadItem } from "./interface";
 import { toggleDownload } from "./isDownloading";
 
@@ -6,8 +6,6 @@ let libraryList;
 let discoverList;
 let favoriteList;
 let recentList;
-
-let games;
 
 function humanFileSize(bytes) {
     const thresh = 1000;
@@ -84,8 +82,6 @@ async function updateFavorites(library) {
 
     for (const [appid, game] of Object.entries(library)) {
         if (game.favorite === true) {
-            let steamData = JSON.parse(await GetJSON(`https://store.steampowered.com/api/appdetails?appids=${appid}`))[appid].data;
-
             favoriteList.appendChild(
                 gameButton(
                     game.name,
@@ -128,9 +124,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     favoriteList = document.querySelector(".game-favorites-container");
     recentList = document.querySelector(".game-recent-container");
 
-    // games = JSON.parse(await GetJSON("https://api.steampowered.com/ISteamApps/GetAppList/v2")).applist.apps;
-
-    /*let loaded = 0;
+    let loaded = 0;
     loaded = addGames(loaded, 30);
 
     // Infinite scroll
@@ -138,17 +132,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
             loaded = addGames(loaded, 20);
         }
-    });*/
+    });
 
     refresh();
-    console.log(await ScrapeTorrents("goat simulator 3"));
-
-    await StartDownload("magnet:?xt=urn:btih:9FB620FFB9CB0D6F68AAA042DF9741D68221BF2D");
-
-    setInterval(checkDownloads, 1000);
 
     document.querySelector(".game-add-button").addEventListener("click", async () => {
         await AddGame();
         refresh();
     });
+
+    console.log(await ScrapeTorrents("goat simulator 3"));
+
+    await StartDownload("magnet:?xt=urn:btih:9FB620FFB9CB0D6F68AAA042DF9741D68221BF2D");
+
+    setInterval(checkDownloads, 1000);
 });

@@ -1,4 +1,4 @@
-import { StartGame } from "../wailsjs/go/main/App";
+import { StartGame } from "../../wailsjs/go/main/App";
 
 let percentage_element = document.querySelector(".progress-percentage");
 let bar_element = document.querySelector(".progress-bar-fill");
