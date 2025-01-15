@@ -92,6 +92,7 @@
 
 .app-footer h1 {
     font-size: 14px;
+    color: var(--secondary-text-color);
 }
 
 .footer-content {
