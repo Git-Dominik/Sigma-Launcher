@@ -1,15 +1,10 @@
 .content {
-    position: absolute;
-    bottom: 0;
-    left: 250px;
-    width: calc(100% - 250px);
-    height: calc(100% - 190px);
-    padding-left: 20px;
-    padding-right: 50px;
+    flex-grow: 1;
     overflow-y: auto;
-    box-sizing: border-box;
+    padding: 0 20px;
     margin-bottom: 50px;
 }
+
 
 .page-content {
     display: none;
@@ -17,4 +12,10 @@
 
 .page-content.active {
     display: block;
+}
+
+.main-container {
+    display: flex;
+    height: calc(100% - 140px);
+    margin-top: 140px;
 }
