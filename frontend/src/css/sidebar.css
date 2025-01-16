@@ -1,14 +1,17 @@
 .sidebar-container {
     width: 250px;
+    min-width: 250px;
     height: 100%;
     color: var(--text-color);
-    position: fixed;
-    padding-top: 50px; /* Needed for topbar */
+    padding-top: 0;
+    transition: width 0.3s ease, min-width 0.3s ease;
+    overflow: hidden;
+    z-index: 99999999999999999999999999999999999999999999999999999999999;
 }
 
 .sidebar-section {
+    margin-top: 20px;
     width: 100%;
-    margin-top: 97px;
 }
 
 .sidebar-section-title {
@@ -55,9 +58,6 @@
     border: 1px solid var(--outline);
 }
 
-/* ==================== */
-/* Active Indicators    */
-/* ==================== */
 .active-indicator {
     height: 0;
     width: 5px;
@@ -94,6 +94,36 @@
 @keyframes growWidth {
     from { width: 0; }
     to { width: 100%; }
+}
+
+.sidebar-toggle-btn {
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    z-index: 9999999999;
+}
+
+.sidebar-toggle-btn:hover {
+    background-color: rgb(159, 34, 34);
+}
+
+.sidebar-toggle-btn .arrow-icon {
+    transition: transform 0.3s ease;
+}
+
+.sidebar-container.collapsed .sidebar-toggle-btn .arrow-icon {
+    transform: rotate(180deg);
+}
+
+.sidebar-container.collapsed {
+    width: 0;
+    min-width: 0;
 }
 
 .sidebar-item.active .active-indicator {

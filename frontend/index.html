@@ -22,12 +22,12 @@
     <title>Sigma</title>
 </head>
 <body>
-
     <div class="topbar">
         <div class="topbar-left">
             <span class="app-name">Sigma Launcher</span>
         </div>
-        <div class="topbar-right"><script src="https://unpkg.com/@popperjs/core@2"></script>
+        <div class="topbar-right">
+            <script src="https://unpkg.com/@popperjs/core@2"></script>
             <script src="https://unpkg.com/tippy.js@6"></script>
             <button class="topbar-button" id="minimize-btn">
                 <i class="fa-solid fa-minus"></i>
@@ -55,102 +55,146 @@
             <button><i class="fa-solid fa-filter"></i></button>
         </div>
     </div>
-    <div class="sidebar-container">
-        <div class="sidebar-section">
-            <div class="sidebar-section-title">
 
-            </div>
-            <div class="sidebar-item" id="library">
-                <div class="active-indicator"></div>
-                <a href="#library"><i class="fa-solid fa-book-open"></i> Library</a>
-            </div>
-            <div class="sidebar-item" id="discover">
-                <div class="active-indicator"></div>
-                <a href="#discover"><i class="fa-solid fa-folder"></i> Discover</a>
-            </div>
-            <div class="sidebar-item" id="favorites">
-                <div class="active-indicator"></div>
-                <a href="#favorites"><i class="fa-solid fa-star"></i> Favorites</a>
-            </div>
-            <div class="sidebar-item" id="recent">
-                <div class="active-indicator"></div>
-                <a href="#recent"><i class="fa-solid fa-clock"></i> Recent</a>
+    <div class="main-container">
+        <div class="sidebar-container">
+            <button id="sidebar-toggle-btn" class="sidebar-toggle-btn">
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </button>
+            <div class="sidebar-section">
+                <div class="sidebar-item" id="library">
+                    <div class="active-indicator"></div>
+                    <a href="#library"><i class="fa-solid fa-book-open"></i> Library</a>
+                </div>
+                <div class="sidebar-item" id="discover">
+                    <div class="active-indicator"></div>
+                    <a href="#discover"><i class="fa-solid fa-folder"></i> Discover</a>
+                </div>
+                <div class="sidebar-item" id="favorites">
+                    <div class="active-indicator"></div>
+                    <a href="#favorites"><i class="fa-solid fa-star"></i> Favorites</a>
+                </div>
+                <div class="sidebar-item" id="recent">
+                    <div class="active-indicator"></div>
+                    <a href="#recent"><i class="fa-solid fa-clock"></i> Recent</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="content">
-        <div id="library-content" class="page-content">
-            <div id="game-page" class="game-page" style="display: none;">
-                <h1 id="game-page-title">Game Page</h1>
-                <p id="game-page-description">Description will go here.</p>
-                <button id="close-game-page">Close</button>
-            </div>
-            <div class="Library-settings-container">
-                <div class="Library-settings-wrapper">
-                    <span>Sort by:</span><button id="sort-library-by">Time played <i class="fa-solid fa-chevron-down"></i></button>
-                </div>
-                <div class="Library-favorites-container">
-                    <button id="all-button" class="active">
-                        All
-                        <div class="active-indicator-horizontal"></div>
-                    </button>
-                    <button id="favorites-button">
-                        Favorites
-                        <div class="active-indicator-horizontal"></div>
-                    </button>
-                </div>
-                <div class="add-game-to-library-wrapper">
-                    <button id="refresh-page"><i class="fa-solid fa-arrows-rotate"></i></button>
-                    <button class="game-add-button" id="Import-from-PC-TT">
-                        Import from PC<i class="fa-solid fa-desktop"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="game-library-container">
-                <div class="game-library-game-box">
-                    <div class="game-box-info">
-                        <div class="text-container">
-                            <h1>Game</h1>
-                            <p>Idk vro</p>
+        <div class="content">
+            <div id="library-content" class="page-content">
+
+
+
+                <div id="game-page" class="game-page" style="display: none;">
+
+
+
+                    <div class="game-page-image-container"></div>
+                    <div class="game-user-stats">
+
+
+                        <div class="game-user-stats-left">
+                            <button>
+                                <i class="fa-solid fa-play"></i>PLAY
+                            </button>
+                            <div class="last-played-wrapper">
+                                <h1>Last played</h1>
+                                <p>Yesterday</p>
+                            </div>
+                            <div class="play-time-wrapper">
+                                <h1>Play time</h1>
+                                <p>11.6 hours</p>
+                            </div>
                         </div>
-                        <button><i class="fa-solid fa-ellipsis"></i></button>
+                        
+
+                        <div class="game-options-wrapper">
+                            <button>
+                                <i class="fa-solid fa-gear"></i>
+                            </button>
+
+                            <button>
+                                <i class="fa-regular fa-star"></i> <!-- <i class="fa-solid fa-star"></i> SOLID STAR -->
+                            </button>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <h1 id="game-page-title"></h1>
+                    <p id="game-page-description"></p>
+                    <button id="close-game-page">Close</button>
+                </div>
+
+
+
+
+
+                <div class="Library-settings-container">
+                    <div class="Library-settings-wrapper">
+                        <span>Sort by:</span><button id="sort-library-by">Time played <i class="fa-solid fa-chevron-down"></i></button>
+                    </div>
+                    <div class="Library-favorites-container">
+                        <button id="all-button" class="active">
+                            All
+                            <div class="active-indicator-horizontal"></div>
+                        </button>
+                        <button id="favorites-button">
+                            Favorites
+                            <div class="active-indicator-horizontal"></div>
+                        </button>
+                    </div>
+                    <div class="add-game-to-library-wrapper">
+                        <button id="refresh-page"><i class="fa-solid fa-arrows-rotate"></i></button>
+                        <button class="game-add-button" id="Import-from-PC-TT">
+                            Import from PC<i class="fa-solid fa-desktop"></i>
+                        </button>
                     </div>
                 </div>
-                <div class="game-library-game-box">
-                    <div class="game-box-info">
-                        <div class="text-container">
-                            <h1>Game</h1>
-                            <p>Idk vro</p>
+                <div class="game-library-container">
+                    <div class="game-library-game-box">
+                        <div class="game-box-info">
+                            <div class="text-container">
+                                <h1>Game</h1>
+                                <p>Idk vro</p>
+                            </div>
+                            <button><i class="fa-solid fa-ellipsis"></i></button>
                         </div>
-                        <button><i class="fa-solid fa-ellipsis"></i></button>
+                    </div>
+                    <div class="game-library-game-box">
+                        <div class="game-box-info">
+                            <div class="text-container">
+                                <h1>Game</h1>
+                                <p>Idk vro</p>
+                            </div>
+                            <button><i class="fa-solid fa-ellipsis"></i></button>
+                        </div>
                     </div>
                 </div>
-                
-
-               
             </div>
-        </div>
 
-        <div id="discover-content" class="page-content" style="display: none;">
-            <div class="game-discover-container">
-                <h1>🥷'ERRRRss</h1>
+            <div id="discover-content" class="page-content" style="display: none;">
+                <div class="game-discover-container">
+                    <h1>🥷'ERRRRss</h1>
+                </div>
             </div>
-        </div>
 
-        <div id="favorites-content" class="page-content" style="display: none;">
-            <div class="game-favorites-container">
+            <div id="favorites-content" class="page-content" style="display: none;">
+                <div class="game-favorites-container">
+                </div>
             </div>
-        </div>
 
-        <div id="recent-content" class="page-content" style="display: none;">
-            <div class="game-recent-container">
+            <div id="recent-content" class="page-content" style="display: none;">
+                <div class="game-recent-container">
+                </div>
             </div>
         </div>
     </div>
 
     <footer class="app-footer">
-        <h1>Placeholder</h1>
         <div class="footer-content">
             <button id="placeholder-text"><i class="fa-solid fa-download"></i>No downloads in progress</button>
             <div class="download-item" id="download-item" style="display: none;">
@@ -172,7 +216,7 @@
         </div>
         <h1>v0.0.1</h1>
     </footer>
-    
+
     <script src="./src/js/main.js" type="module"></script>
     <script src="./src/js/activeIndicator.js" type="module"></script>
     <script src="./src/js/isDownloading.js" type="module"></script>
@@ -180,6 +224,7 @@
     <script src="./src/js/refreshPage.js" type="module"></script>
     <script src="./src/js/tippy.js" type="module"></script>
     <script src="./src/js/list.js" type="module"></script>
+    <script src="./src/js/sidebar.js" type="module"></script>
 </body>
 
 </html>
