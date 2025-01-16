@@ -1,6 +1,6 @@
 :root {
     --background-color: rgb(25, 25, 25);
-    --text-color: white;
+    --text-color: rgb(211, 211, 211);
     --secondary-text-color: rgb(118, 118, 118);
     --accent-color: rgb(229, 63, 51);
     --hover-background-color: rgb(32, 32, 32);
@@ -14,6 +14,7 @@
     padding: 0;
     margin: 0;
     font-family: 'Inter';
+    font-weight: 400;
     letter-spacing: 1.3px;
     box-sizing: border-box;
 }

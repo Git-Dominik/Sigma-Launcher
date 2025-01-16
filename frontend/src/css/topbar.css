@@ -40,7 +40,7 @@
 
 .topbar-button:hover {
     background-color: rgb(29, 29, 29);
-    color: white;
+    color: var(--text-color);
 }
 
 .topbar-button i {

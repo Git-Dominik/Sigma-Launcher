@@ -2,7 +2,6 @@
     position: absolute;
     left: 250px;
     top: 120px;
-    right: 0;
     bottom: 50px;
     width: calc(100% - 250px);
     background-color: var(--background-color);
@@ -15,38 +14,54 @@
 
 .game-page-image-container {
     width: 100%;
-    height: 450px;
+    height: 300px;
     background-color: rgb(35, 35, 35);
     margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-image: url("https://images.igdb.com/igdb/image/upload/t_720p/ar21rp.webp");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 15px;
+    display: flex;
+    align-items: end;
 }
 
 .game-user-stats {
+    position: sticky;
+    top: 100px;
     width: 100%;
-    height: 150px;
-    background-color: orange;
+    backdrop-filter: blur(10px);
+    background: linear-gradient(
+        to bottom, 
+        rgba(25, 25, 25, 0.6) 0%,
+        rgba(25, 25, 25, 0.8) 50%,
+        rgba(25, 25, 25, 1) 100%
+    );
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
+    align-items: flex-start; 
     justify-content: space-between;
+    padding: 10px 20px;
+    gap: 10px;
 }
+
+.game-user-stats p {
+    color: var(--secondary-text-color);
+}
+
 
 .last-played-wrapper {
     display: flex;
     flex-direction: column;
-    background-color: green;
+    color: var(--text-color);
+    font-size: 12px;
 }
 
 .play-time-wrapper {
+    font-size: 12px;
     display: flex;
-    flex-direction: column;
-    background-color: purple;
+    flex-direction: column; 
+    color: var(--text-color);
 }
 
 .game-options-wrapper {
@@ -55,5 +70,19 @@
 
 .game-user-stats-left {
     display: flex;
+    gap: 20px;
     flex-direction: row;
+    align-items: center;
+}
+
+.game-user-stats-left button {
+    cursor: pointer;
+    padding: 15px 40px;
+    border: 0;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
 }
