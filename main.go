@@ -34,6 +34,8 @@ func FormatBytes(bytes int64) string {
 }
 
 func main() {
+	GetGames(10);
+
 	// 🐐routinewails
 	go func() {
 		library = get_library()

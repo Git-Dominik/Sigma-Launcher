@@ -5,3 +5,5 @@ build
 
 library.json
 .torrent.bolt.db
+
+.env

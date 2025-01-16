@@ -34,12 +34,18 @@ async function updateLibrary(library) {
     for (const [appid, gameData] of Object.entries(library)) {
         console.log(gameData);
 
-        let steamData = JSON.parse(await GetJSON(`https://store.steampowered.com/api/appdetails?appids=${appid}`))[appid].data;
+        let steamString = await GetJSON(`https://store.steampowered.com/api/appdetails?appids=${appid}`);
+        if (steamString === undefined) {
+            console.log("Error getting steam data");
+            continue;
+        }
+
+        let steamData = JSON.parse(steamString)[appid].data;
         libraryList.appendChild(
             gameButton(
                 steamData.name,
                 steamData.publishers[0],
-                `https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${appid}/library_600x900.jpg`,
+                `https://shared.loudflare.steamstatic.com/store_item_assets/steam/apps/${appid}/library_600x900.jpg`,
                 appid
             ),
         );
@@ -62,7 +68,11 @@ async function addGames(loaded, amount) {
     }
 
     for (const game of validGames) {
-        let steamData = JSON.parse(await GetJSON(`https://store.steampowered.com/api/appdetails?appids=${game.appid}`))[appid].data;
+        let steamString = await GetJSON(`https://store.steampowered.com/api/appdetails?appids=${appid}`);
+        if (steamString === undefined) {
+            console.log("Error getting steam data");
+            continue;
+        }
 
         discoverList.appendChild(
             gameButton(
@@ -82,6 +92,12 @@ async function updateFavorites(library) {
 
     for (const [appid, game] of Object.entries(library)) {
         if (game.favorite === true) {
+            let steamString = await GetJSON(`https://store.steampowered.com/api/appdetails?appids=${appid}`);
+            if (steamString === undefined) {
+                console.log("Error getting steam data");
+                continue;
+            }
+
             favoriteList.appendChild(
                 gameButton(
                     game.name,
@@ -124,7 +140,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     favoriteList = document.querySelector(".game-favorites-container");
     recentList = document.querySelector(".game-recent-container");
 
-    let loaded = 0;
+    /*let loaded = 0;
     loaded = addGames(loaded, 30);
 
     // Infinite scroll
@@ -132,7 +148,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
             loaded = addGames(loaded, 20);
         }
-    });
+    });*/
 
     refresh();
 

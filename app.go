@@ -67,20 +67,21 @@ func (a *App) ScrapeTorrents(item string) []Game1337x {
 	return results
 }
 
-func (a *App) GetJSON(url string) string {
+func (a *App) GetJSON(url string) *string {
 	res, err := http.Get(url)
 	if err != nil {
-		return ""
+		return nil
 	}
 
 	defer res.Body.Close()
 
 	json, err := io.ReadAll(res.Body)
 	if err != nil {
-		return ""
+		return nil
 	}
 
-	return string(json)
+	result := string(json)
+	return &result
 }
 
 func GetOnlineFix(filename string) int {

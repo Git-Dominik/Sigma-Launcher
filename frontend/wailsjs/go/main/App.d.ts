@@ -6,7 +6,7 @@ export function AddGame():Promise<boolean>;
 
 export function GetDownloads():Promise<Array<main.GameData>>;
 
-export function GetJSON(arg1:string):Promise<string>;
+export function GetJSON(arg1:string):Promise<any>;
 
 export function GetLibrary():Promise<{[key: number]: main.Game}>;
 

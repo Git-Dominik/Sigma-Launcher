@@ -27,7 +27,7 @@ tippy("#refresh-page", {
 });
 
 tippy("#favorites-button", {
-    content: "Sort games by favorites",
+    content: "Filter games by favorites",
 
     followCursor: "horizontal",
     plugins: [followCursor, animateFill],
@@ -38,7 +38,7 @@ tippy("#favorites-button", {
 });
 
 tippy("#all-button", {
-    content: "Sort games by all",
+    content: "Filter games by all",
 
     followCursor: "horizontal",
     plugins: [followCursor, animateFill],
@@ -49,7 +49,7 @@ tippy("#all-button", {
 });
 
 tippy("#sort-library-by", {
-    content: "Sort games by all",
+    content: "Sort games by",
 
     followCursor: "horizontal",
     plugins: [followCursor, animateFill],
