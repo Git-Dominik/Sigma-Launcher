@@ -1,12 +1,9 @@
 /*
 
 let downloadItem;
-let downloadItem;
 let placeholderText;
 
 export function toggleDownload(toggle) {
-@@ -7,15 +7,17 @@ export function toggleDownload(toggle) {
-    }
     if (toggle) {
         downloadItem.style.display = "flex";
         placeholderText.style.display = "none";
@@ -23,11 +20,6 @@ export function toggleDownload(toggle) {
 document.addEventListener("DOMContentLoaded", function () {
     downloadItem = document.getElementById("download-item");
     placeholderText = document.getElementById("placeholder-text");
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    downloadItem = document.getElementById('download-item');
-    placeholderText = document.getElementById('placeholder-text');
 });
 
 */
