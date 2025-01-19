@@ -1,4 +1,4 @@
-/*
+
 
 let downloadItem;
 let placeholderText;
@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
     placeholderText = document.getElementById("placeholder-text");
 });
 
-*/
+console.log(downloadItem);
+
 
 /* enable op start dan no do*/
