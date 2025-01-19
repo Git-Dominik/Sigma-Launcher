@@ -10,7 +10,7 @@
     color: var(--secondary-text-color);
     padding: 0 20px;
     box-sizing: border-box;
-    z-index: 999999999999999999999999999;
+    z-index: 10;
 }
 
 .download-item {

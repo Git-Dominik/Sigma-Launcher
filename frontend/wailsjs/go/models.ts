@@ -1,5 +1,21 @@
 export namespace main {
 	
+	export class ApiGame {
+	    id: number;
+	    name: string;
+	    cover: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new ApiGame(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.cover = source["cover"];
+	    }
+	}
 	export class Game1337x {
 	    Title: string;
 	    Uploader: string;
@@ -34,6 +50,18 @@ export namespace main {
 	        this.Name = source["Name"];
 	        this.Progress = source["Progress"];
 	        this.Speed = source["Speed"];
+	    }
+	}
+	export class Image {
+	    url: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new Image(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.url = source["url"];
 	    }
 	}
 

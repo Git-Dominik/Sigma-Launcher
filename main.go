@@ -13,6 +13,7 @@ import (
 var assets embed.FS
 
 var torrentManager *Manager
+var apiManager *APIManager
 var library *Library
 
 func FormatBytes(bytes int64) string {
@@ -34,12 +35,11 @@ func FormatBytes(bytes int64) string {
 }
 
 func main() {
-	GetGames(10);
-
-	// 🐐routinewails
+	// 🐐routine
 	go func() {
 		library = get_library()
 		torrentManager = start_client()
+		apiManager = NewAPI()
 	}()
 
 	go func() {

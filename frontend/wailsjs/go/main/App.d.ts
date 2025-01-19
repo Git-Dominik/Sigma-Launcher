@@ -4,9 +4,11 @@ import {main} from '../models';
 
 export function AddGame():Promise<boolean>;
 
+export function GetCover(arg1:number):Promise<Array<main.Image>>;
+
 export function GetDownloads():Promise<Array<main.GameData>>;
 
-export function GetJSON(arg1:string):Promise<any>;
+export function GetGames(arg1:string):Promise<Array<main.ApiGame>>;
 
 export function GetLibrary():Promise<{[key: number]: main.Game}>;
 

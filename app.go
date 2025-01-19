@@ -2,8 +2,6 @@ package main
 
 import (
 	"context"
-	"io"
-	"net/http"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -67,21 +65,12 @@ func (a *App) ScrapeTorrents(item string) []Game1337x {
 	return results
 }
 
-func (a *App) GetJSON(url string) *string {
-	res, err := http.Get(url)
-	if err != nil {
-		return nil
-	}
+func (a *App) GetGames(header string) []ApiGame {
+	return apiManager.GetGames(header)
+}
 
-	defer res.Body.Close()
-
-	json, err := io.ReadAll(res.Body)
-	if err != nil {
-		return nil
-	}
-
-	result := string(json)
-	return &result
+func (a *App) GetCover(igdbId int) []Image {
+	return apiManager.GetCover(igdbId)
 }
 
 func GetOnlineFix(filename string) int {

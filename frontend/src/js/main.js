@@ -1,4 +1,4 @@
-import { AddGame, GetLibrary, GetJSON, GetDownloads, StartDownload, ScrapeTorrents } from "../../wailsjs/go/main/App";
+import { AddGame, GetLibrary, GetDownloads, StartDownload, ScrapeTorrents, GetGames, GetCover } from "../../wailsjs/go/main/App";
 import { gameButton, setDownloadItem } from "./interface";
 import { toggleDownload } from "./isDownloading";
 
@@ -158,8 +158,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     console.log(await ScrapeTorrents("goat simulator 3"));
+    
+    var games = await GetGames("fields id, name, cover; sort rating desc; limit 10;");
 
-    await StartDownload("magnet:?xt=urn:btih:9FB620FFB9CB0D6F68AAA042DF9741D68221BF2D");
+    for (const game of games) {
+        console.log(await GetCover(game.cover));
+    }
+
+    // await StartDownload("magnet:?xt=urn:btih:9FB620FFB9CB0D6F68AAA042DF9741D68221BF2D");
 
     setInterval(checkDownloads, 1000);
 });

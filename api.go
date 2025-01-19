@@ -6,27 +6,77 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+
+	"github.com/joho/godotenv"
 )
 
 type ApiGame struct {
-	Id 	int `json:"id"`
-	Name string `json:"name"`
+	Id    int    `json:"id"`
+	Name  string `json:"name"`
+	Cover int    `json:"cover"`
 }
 
-func GetGames(amount int) []ApiGame {
-	client := &http.Client{}
+type Image struct {
+	Link string `json:"url"`
+}
 
-	fmt.Println(os.Getenv("IGDB_CLIENT"))
+type APIManager struct {
+	client *http.Client
+}
 
-	body := []byte(`fields name; limit 10;`)
-
-	request, err := http.NewRequest("POST", "https://api.igdb.com/v4/games/", bytes.NewBuffer(body))
+func SetupHeader(request *http.Request) {
+	err := godotenv.Load()
 	if err != nil {
-		return nil
+		fmt.Println("Error loading .env file")
 	}
 
 	request.Header.Set("Client-ID", os.Getenv("IGDB_CLIENT"))
 	request.Header.Set("Authorization", fmt.Sprintf("Bearer %s", os.Getenv("IGDB_AUTH")))
+}
+
+func NewAPI() *APIManager {
+	return &APIManager{client: &http.Client{}}
+}
+
+func (*APIManager) GetCover(cover int) []Image {
+	client := &http.Client{}
+
+	header := fmt.Sprintf(`fields url; where id = %d;`, cover)
+
+	request, err := http.NewRequest("POST", "https://api.igdb.com/v4/covers/", bytes.NewBuffer([]byte(header)))
+	if err != nil {
+		fmt.Println(err)
+		return []Image{}
+	}
+
+	SetupHeader(request)
+
+	response, err := client.Do(request)
+	if err != nil {
+		fmt.Println(err)
+		return []Image{}
+	}
+	defer response.Body.Close()
+
+	var images []Image
+	jsonErr := json.NewDecoder(response.Body).Decode(&images)
+	if jsonErr != nil {
+		fmt.Println(err)
+		return []Image{}
+	}
+
+	return images
+}
+
+func (*APIManager) GetGames(header string) []ApiGame {
+	client := &http.Client{}
+
+	request, err := http.NewRequest("POST", "https://api.igdb.com/v4/games/", bytes.NewBuffer([]byte(header)))
+	if err != nil {
+		return nil
+	}
+
+	SetupHeader(request)
 
 	response, err := client.Do(request)
 	if err != nil {
@@ -35,11 +85,11 @@ func GetGames(amount int) []ApiGame {
 	defer response.Body.Close()
 
 	var games []ApiGame
-	if err := json.NewDecoder(response.Body).Decode(&games); err != nil {
-		return nil	
+	jsonErr := json.NewDecoder(response.Body).Decode(&games)
+	if jsonErr != nil {
+		return nil
 	}
 
 	fmt.Println(games)
-
 	return games
 }
