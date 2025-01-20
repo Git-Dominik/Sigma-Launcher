@@ -4,15 +4,17 @@
   "version": "0.1.0",
   "identifier": "com.sigma-launcher.app",
   "build": {
-    "frontendDist": "../src"
+    "frontendDist": "../frontend"
   },
   "app": {
     "withGlobalTauri": true,
     "windows": [
       {
         "title": "sigma-launcher",
-        "width": 800,
-        "height": 600
+        "width": 1200,
+        "height": 900,
+        "minHeight": 700,
+        "minWidth": 1064
       }
     ],
     "security": {
