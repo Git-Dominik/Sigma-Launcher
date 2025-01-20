@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/anacrolix/torrent"
@@ -20,7 +22,16 @@ type Manager struct {
 
 // start client en geef manager zodat je makkelijk kan bedienen zawg
 func start_client() *Manager {
-	client, err := torrent.NewClient(nil)
+	dirErr := os.MkdirAll(filepath.Join(".", "downloads"), os.ModePerm)
+	if dirErr != nil {
+		fmt.Println("Error creating downloads directory")
+	}
+
+	conf := torrent.ClientConfig{
+		DataDir: "downloads",
+	}
+
+	client, err := torrent.NewClient(&conf)
 	if err != nil {
 		fmt.Println("Error starting torrent client")
 	}
@@ -43,9 +54,9 @@ func (manager Manager) add_torrent(magnetLink string) (*torrent.Torrent, error) 
 	t.DownloadAll()
 
 	manager.games[t.Info().Name] = GameData{
-		Name: t.Info().Name,
+		Name:     t.Info().Name,
 		Progress: 0,
-		Speed: 0,
+		Speed:    0,
 	}
 
 	// speed goroutine
@@ -58,7 +69,7 @@ func (manager Manager) add_torrent(magnetLink string) (*torrent.Torrent, error) 
 			select {
 			case <-ticker.C:
 				currentBytes := int(t.BytesCompleted())
-				completionRatio := float64(currentBytes)/float64(t.Info().TotalLength())
+				completionRatio := float64(currentBytes) / float64(t.Info().TotalLength())
 
 				game := manager.games[t.Info().Name]
 				game.Speed = currentBytes - lastBytes
